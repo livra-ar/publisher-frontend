@@ -1,0 +1,41 @@
+<div style="text-align:center">
+
+
+            <ul *ngIf="files.length > 0" class="list-group" style="">
+                <li class="list-group-item" *ngFor="let file of files; index as i">
+                    <div class="container">
+                        <div class="row">
+                          <div class="col-8">
+                            <mat-progress-bar [value]="file.progress"></mat-progress-bar>
+                              <small class="form-text text-muted" id="file-label">
+                            {{file.data.name}}
+
+
+                    </small>
+                          </div>
+                          <div class="col">
+                            <button  mat-icon-button color="warn" (click)="removeFile(i)">
+                              <mat-icon>remove_circle</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                    </div>
+
+
+                </li>
+            </ul>
+
+            <ul *ngIf="files.length == 0" class="list-group" style="">
+                <li class="list-group-item">
+                  No {{type}} selected
+                </li>
+            </ul>
+            <button class="my-3" [disabled]="files.length >= maximum" mat-flat-button color="primary" (click)="onClick()">
+                <mat-icon>add_circle</mat-icon>
+                Add {{type | titlecase}}
+            </button>
+
+    <input type="file" #fileUpload id="fileUpload" name="fileUpload" [accept]="
+    (type ===  'images') ? 'image/*' : '.zip'" style="display:none;" />
+
+  </div>
