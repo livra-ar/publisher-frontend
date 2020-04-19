@@ -1,0 +1,49 @@
+<div class="container p-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center">Edit Book</h5>
+          <div class="container mt-3">
+            <div class="row">
+              <div class="col">
+                <form [formGroup]="bookEditForm" (ngSubmit)="onSubmit">
+            <div class="form-group">
+              <mat-form-field>
+                <mat-label>Title</mat-label>
+                <input matInput name="title" formControlName="title" type="text">
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field>
+                <mat-label>ISBN</mat-label>
+                <input matInput name="isbn" formControlName="isbn" type="text">
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field>
+                <mat-label for="author">Author</mat-label>
+                <input matInput name="author" formControlName="author" type="text">
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field>
+                <mat-label for="publisher">Publisher</mat-label>
+                <input matInput name="publisher" formControlName="publisher" readonly type="text">
+              </mat-form-field>
+            </div>
+
+          </form></div>
+              <div class="col">
+              <app-file-upload [max]="maxFiles" [existingFiles]="existingFiles.asObservable()" (changed)="onFilesChange($event)" (uploaded)="onUploadComplete($event)">
+              </app-file-upload>
+                 <button class="w-100 p-1" (click)="onSubmit()"color="primary" mat-flat-button type="submit" [disabled]="!bookEditForm.valid || fileError">Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

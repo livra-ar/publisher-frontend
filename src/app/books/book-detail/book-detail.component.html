@@ -1,0 +1,35 @@
+<div class="container" style="background:white">
+    <div class="row">
+        <div class="col-4">
+            <img class="img-fluid" [src]="book?.covers[0] || 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Placeholder_book.svg/792px-Placeholder_book.svg.png'" />
+        </div>
+        <div class="col">
+
+                <h1 class="mt-4 font-weight-bold">{{book?.title  }}</h1>
+                <h4 class="font-italic">by {{book?.authors.join(', ') }}</h4>
+   <button routerLink='/books/edit/{{book?.id}}' mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+    <mat-icon>edit</mat-icon>
+  </button>
+   <button (click)="delete()" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+    <mat-icon>delete</mat-icon>
+  </button>
+    <ul class="list-unstyled mt-3">
+        <li class="font-weight-light">Publisher -  {{book?.publisher?.name  }}</li>
+        <li class="font-weight-light">ISBN(s) - {{book?.isbns.join(', ')  }}</li>
+    </ul>
+
+    <div class="book-cover-gallery">
+
+
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="content-list">
+<app-card-list [content]="content.asObservable()" ></app-card-list>
+</div>
+
+
