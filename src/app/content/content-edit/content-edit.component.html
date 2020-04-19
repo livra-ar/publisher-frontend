@@ -1,0 +1,54 @@
+<div class="container p-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center">Edit Content</h5>
+          <div class="container mt-3">
+            <div class="row">
+              <div class="col">
+                <form [formGroup]="editContentForm" (ngSubmit)="onSubmit">
+            <div class="form-group">
+              <mat-form-field>
+                <mat-label>Title</mat-label>
+                <input matInput name="title" formControlName="title" type="text">
+              </mat-form-field>
+            </div>
+               <div class="form-group">
+            <mat-form-field>
+  <mat-label>Book</mat-label>
+  <mat-select formControlName="book">
+    <mat-option [value]="book.id" *ngFor="let book of (books)">
+      {{book.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field>
+                <mat-label>Description</mat-label>
+                <textarea matInput name="description" formControlName="description">
+                </textarea>
+              </mat-form-field>
+            </div>
+          </form></div>
+              <div class="col">
+
+ <app-file-upload #fileUpload [max]="maxFiles" type="files" (changed)="onFileInputChange($event)" [existingFiles]="existingFile.asObservable()" (uploaded)="onFileUploadComplete($event)">
+              </app-file-upload>
+
+              <app-file-upload #imageUpload [max]="maxImageFiles" (changed)="onImageInputChange($event)" type="images" (uploaded)="onImageUploadComplete($event)" [existingFiles]="existingImages.asObservable()">
+              </app-file-upload>
+                 <button class="w-100 p-1" (click)="onSubmit()" color="primary" mat-flat-button type="submit" [disabled]="!editContentForm.valid || fileError || imageError">Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{fileError}}
+{{imageError}}
+{{editContentForm.valid}}
