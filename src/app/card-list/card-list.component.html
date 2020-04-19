@@ -1,0 +1,30 @@
+
+
+<mat-grid-list *ngIf= "!loading"  cols="4" rowHeight="400px" gutterSize="5px" style="margin:5px;">
+  <mat-grid-tile *ngFor="let card of cards">
+    <mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>{{card.title}}</mat-card-title>
+  </mat-card-header>
+  <div class="cover-image">
+  <img mat-card-image class="rounded"  [src]="card.image" alt="Cover Image">
+</div>
+  <mat-card-content class="mt-2">
+  <div *ngIf="!card.active && card.type === 'content'" class="my-1">
+  <mat-chip-list aria-label="Tags">
+    <mat-chip>Unpublished</mat-chip>
+  </mat-chip-list>
+  </div>
+  <button [routerLink]="card.link" mat-flat-button color="primary" class="w-100">View</button>
+  </mat-card-content>
+  <mat-card-actions>
+
+  </mat-card-actions>
+</mat-card>
+  </mat-grid-tile>
+
+</mat-grid-list>
+
+<div class="d-flex justify-content-center">
+  <mat-progress-spinner *ngIf="loading"  mode="indeterminate"></mat-progress-spinner>
+</div>
