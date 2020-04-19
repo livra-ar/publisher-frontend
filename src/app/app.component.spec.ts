@@ -26,10 +26,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('ar-frontend');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ar-frontend app is running!');
-  });
 });
