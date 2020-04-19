@@ -1,0 +1,15 @@
+<div class="container" style="background:white;">
+  <div class="row">
+    <div class="col"><h3 class="mt-2 ml-2 font-weight-bold">Dashboard</h3>
+
+<mat-tab-group>
+    <mat-tab label="Content">
+      <app-card-list [content]="content$"></app-card-list>
+   </mat-tab>
+  <mat-tab label="Books">
+    <app-card-list [content]="books$"></app-card-list>
+  </mat-tab>
+</mat-tab-group>
+</div>
+  </div>
+</div>
