@@ -1,0 +1,7 @@
+<h5 mat-dialog-title>{{data.title}}</h5>
+<div mat-dialog-content>
+  <p>{{data.message}}</p>
+</div>
+<div class="justify-content-end" mat-dialog-actions>
+  <button mat-stroked-button [color]="data.type &&  data.type === 'error' ? 'warn' : 'primary'" mat-dialog-close="true"  cdkFocusInitial>Close</button>
+</div>
