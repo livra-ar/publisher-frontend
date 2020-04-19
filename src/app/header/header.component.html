@@ -1,0 +1,25 @@
+<header>
+
+<mat-toolbar color="primary" >
+  <h1>
+    AR Platform
+  </h1>
+  <span class="fill-space"></span>
+  <div class="">
+  <nav class="" *ngIf="!(loggedIn$ | async)">
+        <button mat-button routerLink="/login" routerLinkActive="active">Login</button>
+        <button mat-button routerLink="/register" routerLinkActive="active">Register</button>
+  </nav>
+  <nav class="" *ngIf="(loggedIn$ | async)">
+    <button mat-button routerLink=''>Dashboard</button>
+    <button mat-button routerLink='/books/add'>Add Book</button>
+    <button mat-button routerLink='/content/add'>Add Content</button>
+  <!--   <button mat-button routerLink='/notifications'>Notifications</button>
+    <button mat-button routerLink='/settings'>Settings</button> -->
+    <button mat-button routerLink='' (click)="logout()">Logout</button>
+  </nav>
+  </div>
+
+</mat-toolbar>
+
+</header>
