@@ -3,6 +3,7 @@ import { Observable, of,  BehaviorSubject } from 'rxjs';
 import { tap, delay, map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ConfigService} from '@app/services/config.service';
 
 interface LoggedInUserInfo {
   name: string;
@@ -28,10 +29,11 @@ export class AuthService {
   private serverUrl = 'http://localhost:8000'
   constructor(
      private http: HttpClient,
-     private router: Router
+     private router: Router,
+     private config: ConfigService
   ) {
     this.loggedIn$.subscribe(value => this.isLoggedIn = value);
-
+    this.serverUrl = config.serverUrl;
    }
 
   private _storeLogin(loggedInUser: LoggedInUserInfo){
