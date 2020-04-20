@@ -2,14 +2,19 @@ import { Injectable } from '@angular/core';
 // import { Book } from '@app/book';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { ConfigService } from '@app/services/config.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class BooksService {
 
   constructor(
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private config: ConfigService
+  ) {
+    this.SERVER_URL = config.serverUrl;
+  }
   private SERVER_URL = "http://localhost:8000";
   addBook(book){
     // PUT BOOK TODO:

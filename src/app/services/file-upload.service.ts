@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
+import { ConfigService } from '@app/services/config.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,10 +11,10 @@ export class FileUploadService {
 
   constructor(
     public http$: HttpClient,
-
+    private config: ConfigService
   ) {
 
-
+      this.SERVER_URL = this.config.serverUrl + '/upload';
     }
 
     public uploadFiles(formData: FormData, type: 'images' | 'files'){

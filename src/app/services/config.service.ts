@@ -8,6 +8,6 @@ export class ConfigService {
   constructor() { }
 
   get serverUrl(){
-    return 'https://ar-content-platform-backend.herokuapp.com/';
+    return 'https://ar-content-platform-backend.herokuapp.com';
   }
 }
