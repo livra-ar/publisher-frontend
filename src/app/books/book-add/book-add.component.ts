@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { BooksService } from '@app/services/books.service';
 import { AuthService } from '@app/auth/auth.service'
 import { AlertService} from '@app/services/alert.service';
-import { Book } from '@app/book';
+// import { Book } from '@app/book';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ISBNValidator } from '@app/shared/isbn.directive';
 import { FileUploadComponent } from '@app/file-upload/file-upload.component';

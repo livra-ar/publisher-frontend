@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Book } from '@app/book';
+// import { Book } from '@app/book';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 @Injectable({
@@ -11,7 +11,7 @@ export class BooksService {
     private http: HttpClient
   ) { }
   private SERVER_URL = "http://localhost:8000";
-  addBook(book:Book){
+  addBook(book){
     // PUT BOOK TODO:
     // Redirect to BookDetailView
     return this.http.post<any>(this.SERVER_URL+ '/book/', book);

@@ -5,7 +5,7 @@ import { BooksModule } from '@app/books/books.module';
 import { ContentModule } from '@app/content/content.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { PublisherModule } from '@app/publisher/publisher.module';
+// import { PublisherModule } from '@app/publisher/publisher.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DashboardComponent } from '@app/dashboard/dashboard.component';
@@ -60,7 +60,7 @@ import { CardListModule } from '@app/card-list/card-list.module';
     CardListModule,
     BooksModule,
     ContentModule,
-    PublisherModule,
+    // PublisherModule,
     AppRoutingModule,
     // SweetAlert2Module.forRoot()
   ],
