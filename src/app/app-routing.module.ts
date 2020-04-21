@@ -7,11 +7,12 @@ import { PageNotFoundComponent } from '@app/page-not-found/page-not-found.compon
 import { DashboardComponent } from '@app/dashboard/dashboard.component';
 import { GuestGuard } from "@app/auth/guest.guard";
 import { AuthGuard } from '@app/auth/auth.guard';
+import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   {path: 'login', component: LoginComponent, data : {title: 'Login'}, canActivate: [GuestGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [GuestGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: '', redirectTo:'/login', pathMatch: 'full'},
+  {path: '', component:HomeComponent, pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];
 
