@@ -4,7 +4,7 @@ import { BooksService } from '@app/services/books.service';
 import { ContentService } from '@app/services/content.service';
 import { AlertService } from '@app/services/alert.service';
 import { of, BehaviorSubject, throwError } from 'rxjs';
-
+import { AuthService } from '@app/auth/auth.service';
 import { switchMap, tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 @Component({
@@ -18,12 +18,13 @@ export class BookDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private bookService: BooksService,
+    private authService: AuthService,
     private contentService: ContentService,
     private alert: AlertService
   ) { }
 
   public book;
-
+  user;
   public content = new BehaviorSubject<any[]>([]);
 
   ngOnInit(): void {
@@ -43,14 +44,15 @@ export class BookDetailComponent implements OnInit {
         this.content.next(content);
       });
      }, err => {
-       if(err.status !== 404){
+       if(err.status != 404){
          this.alert.showErrorAlert(
            'An error occurred while fetching book data. Please refresh the page.',
            'Error');
        } else {
-         this.router.navigate['/not-found']
+         this.router.navigate(['/not-found'])
        }
     });
+    this.user = this.authService.getCurrentUser();
 
   }
 

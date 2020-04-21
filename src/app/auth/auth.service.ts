@@ -70,6 +70,8 @@ export class AuthService {
   emailExists(email: string): Observable<boolean>{
     return this.http.head<any>(
       `${this.serverUrl}/user/emails/${email}/`, {'observe' : 'response'}
+    return this.getCurrentUser()?.token;
+    return this.getCurrentUser()?.token;
     ).pipe(
      map(response => {
        return response.status === 200;

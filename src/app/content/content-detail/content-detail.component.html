@@ -6,12 +6,14 @@
     <div class="col">
       <h3 class="font-weight-bold mt-4  ">{{ content?.title}}</h3>
       <h4>by <span  class="font-italic">{{ content?.creator?.name }}</span></h4>
-         <button routerLink='/content/edit/{{content?.id}}' mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+        
+        <div *ngIf="content?.creator.id == user.id"> <button routerLink='/content/edit/{{content?.id}}' mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
     <mat-icon>edit</mat-icon>
   </button>
    <button (click)="delete()" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
     <mat-icon>delete</mat-icon>
-  </button>
+  </button> 
+  </div>
       <p class="font-weight-light text-break">
         {{ content?.description }}
       </p>
