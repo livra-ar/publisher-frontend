@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpRequest, HttpInterceptor, HttpHandler } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpEvent, HttpRequest, HttpInterceptor, HttpHandler, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { AuthService } from '@app/auth/auth.service';
+import { AlertService } from '@app/services/alert.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +12,9 @@ import { AuthService } from '@app/auth/auth.service';
 export class AuthInterceptorService implements HttpInterceptor{
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private alert: AlertService,
+    private router: Router
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
@@ -20,6 +25,24 @@ export class AuthInterceptorService implements HttpInterceptor{
       }
     })
 
-    return next.handle(req);
+    return next.handle(req).pipe(
+      catchError(
+        (err, caught)=> {
+          if (err.status === 401){
+            this.handleAuthError();
+            return of(err);
+          }
+          throw err;
+        })
+    );
+  }
+
+  handleAuthError(){
+    this.authService.logout();
+    this.alert.showErrorAlert(
+      'Please log in again',
+      'Login Expired'
+    )
+    this.router.navigate(['/login'])
   }
 }
