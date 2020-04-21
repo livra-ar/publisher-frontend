@@ -41,7 +41,13 @@ export class BookDetailComponent implements OnInit {
     ).subscribe(book => {
       this.book = book;
       this.contentService.getByBookId(book.id).subscribe(content=>{
-        this.content.next(content);
+        this.content.next(content.map(content => ({
+          link: '/content/'+content.id,
+          title: content.title,
+          image: (content.images) ? content.images[0]: null,
+          active: content.active,
+          type:'content'
+        })));
       });
      }, err => {
        if(err.status != 404){
