@@ -41,12 +41,15 @@ export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup = this.fb.group({
     displayName: ['', [Validators.required]],
-    email: ['', [
+    email: ['', {
+		validators: [
                   Validators.required,
                   patternValidator(VALIDATION.emailRegex)
-                ], [
-                 this.uniqueEmailValidator
-                ] ],
+                ],
+		asyncValidators: [this.uniqueEmailValidator],
+		updateOn: 'blur'
+		}
+	],
     password: ['', [
                   Validators.required,
                   Validators.minLength(VALIDATION.minPasswordLength),
@@ -55,7 +58,7 @@ export class RegisterComponent implements OnInit {
     confirm: ['', [Validators.required]]
     }, {
       validators: [passwordConfirmValidator],
-      updateOn: 'blur'
+
     });
 
   ngOnInit(): void {
@@ -84,7 +87,12 @@ export class RegisterComponent implements OnInit {
       email: this.registerForm.get('email').value,
       password: this.registerForm.get('password').value,
     }).subscribe(
-      user => this.router.navigate([this.authService.redirectUrl]),
+      user =>  {
+        this.alert.showSuccessAlert('Registration successful. Please login',
+        'Success').afterClosed().subscribe(()=>{
+          this.router.navigate(['/login'])
+        });
+      },
       err => {
         this.alert.showErrorAlert(err.statusText, 'Error');
 

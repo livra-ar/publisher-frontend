@@ -14,7 +14,7 @@
 
     <input matInput formControlName="displayName" name="displayName" type="text" required>
 
-        <mat-error *ngIf="displayName.invalid && (displayName.dirty || displayName.touched) && displayName.errors.required">
+        <mat-error *ngIf="displayName.invalid && (displayName.dirty || displayName.touched) && displayName.errors?.required">
             A display name is required
         </mat-error>
     </mat-form-field>
@@ -22,23 +22,24 @@
 <div class="form-group">
     <mat-form-field><mat-label>Email</mat-label>
           <input matInput formControlName="email" name="email" type="text" required>
-            <mat-error *ngIf="email.invalid && (email.dirty || email.touched) && email.errors.required || email.errors.invalidPattern">
+		<mat-spinner *ngIf="true"  style="float: right; margin-left: 8px" matSuffix></mat-spinner>
+            <mat-error *ngIf="email.invalid && (email.dirty || email.touched) && email.errors?.required || email.errors?.invalidPattern">
                 A valid email is required
             </mat-error>
-            <mat-error *ngIf="email.invalid && (email.dirty || email.touched) && email.errors.nonUniqueEmail">
-                Email already registerd
+            <mat-error *ngIf="email.invalid && (email.dirty || email.touched) && email.errors?.nonUniqueEmail">
+                Email already registered
             </mat-error>
           </mat-form-field></div>
 <div class="form-group"><mat-form-field>    <mat-label>Password</mat-label>
     <input matInput formControlName="password" name="password" type="password" required>
     <mat-hint>Password should contain at least 8 non white characters</mat-hint>
-        <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors.required">
+        <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors?.required">
             A valid password is required
         </mat-error>
-        <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors.minlength">
+        <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors?.minlength">
             Password must be at least 8 characters
         </mat-error>
-        <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors.invalidPattern">
+        <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors?.invalidPattern">
             Password should have non whitespace characters
         </mat-error>
   </mat-form-field>
@@ -46,7 +47,7 @@
 
 <div class="form-group"><mat-form-field>    <mat-label>Password (Confirm)</mat-label>
     <input matInput formControlName="confirm" name="confirm" type="password" [errorStateMatcher]="matcher" required>
-        <mat-error *ngIf="confirm.invalid && (confirm.dirty || confirm.touched) && confirm.errors.required">
+        <mat-error *ngIf="confirm.invalid && (confirm.dirty || confirm.touched) && confirm.errors?.required">
             A password confirmation is required
         </mat-error>
         <mat-error *ngIf="registerForm.errors?.unmatchingPasswords">
