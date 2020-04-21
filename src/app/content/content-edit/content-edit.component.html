@@ -12,6 +12,9 @@
               <mat-form-field>
                 <mat-label>Title</mat-label>
                 <input matInput name="title" formControlName="title" type="text">
+                <mat-error *ngIf="title.invalid && (title.dirty || title.touched) && title.errors.required">
+                  Title is required
+                </mat-error>
               </mat-form-field>
             </div>
                <div class="form-group">
@@ -22,6 +25,9 @@
       {{book.title}}
     </mat-option>
   </mat-select>
+  <mat-error *ngIf="book.invalid && (book.dirty || book.touched) && book.errors.required">
+    A book is required
+  </mat-error>
 </mat-form-field>
             </div>
             <div class="form-group">
@@ -29,15 +35,19 @@
                 <mat-label>Description</mat-label>
                 <textarea matInput name="description" formControlName="description">
                 </textarea>
+                <mat-hint align="end">{{description.value?.length || 0}}/280</mat-hint>
+                <mat-error *ngIf="description.invalid && (description.dirty || description.touched) && description.errors.required">
+                  A description of minimum 100 characters is required
+                </mat-error>
               </mat-form-field>
             </div>
           </form></div>
               <div class="col">
 
- <app-file-upload #fileUpload [max]="maxFiles" type="files" (changed)="onFileInputChange($event)" [existingFiles]="existingFile.asObservable()" (uploaded)="onFileUploadComplete($event)">
+ <app-file-upload label="AR Content" #fileUpload [max]="maxFiles" type="files" (changed)="onFileInputChange($event)" [existingFiles]="existingFile.asObservable()" (uploaded)="onFileUploadComplete($event)">
               </app-file-upload>
 
-              <app-file-upload #imageUpload [max]="maxImageFiles" (changed)="onImageInputChange($event)" type="images" (uploaded)="onImageUploadComplete($event)" [existingFiles]="existingImages.asObservable()">
+              <app-file-upload label="Preview Images" #imageUpload [max]="maxImageFiles" (changed)="onImageInputChange($event)" type="images" (uploaded)="onImageUploadComplete($event)" [existingFiles]="existingImages.asObservable()">
               </app-file-upload>
                  <button class="w-100 p-1" (click)="onSubmit()" color="primary" mat-flat-button type="submit" [disabled]="!editContentForm.valid || fileError || imageError">Save Changes</button>
               </div>

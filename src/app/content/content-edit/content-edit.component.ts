@@ -124,4 +124,15 @@ export class ContentEditComponent implements OnInit {
   onImageInputChange(images){
      this.imageError = images.length < 1;
   }
+
+  get title(){
+    return this.editContentForm.get('title')
+  }
+  get description(){
+    return this.editContentForm.get('description')
+  }
+  get book(){
+    return this.editContentForm.get('book')
+  }
+
 }

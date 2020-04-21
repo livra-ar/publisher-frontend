@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { BooksService } from '@app/services/books.service';
 import { ContentService } from '@app/services/content.service';
 import { AlertService } from '@app/services/alert.service';
-import { of, BehaviorSubject } from 'rxjs';
+import { of, BehaviorSubject, throwError } from 'rxjs';
 
 import { switchMap, tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
@@ -27,11 +27,15 @@ export class BookDetailComponent implements OnInit {
   public content = new BehaviorSubject<any[]>([]);
 
   ngOnInit(): void {
-    
+
    this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         const id = params.get('id');
-        return this.bookService.getById(id);
+        if (id.match(/^[0-9a-fA-F]{24}$/)) {
+          return this.bookService.getById(id);
+        } else {
+            return throwError({status: 404})
+        }
       })
     ).subscribe(book => {
       this.book = book;
@@ -39,9 +43,13 @@ export class BookDetailComponent implements OnInit {
         this.content.next(content);
       });
      }, err => {
-      this.alert.showErrorAlert(
-        'An error occurred while fetching book data. Please refresh the page.',
-        'Error');
+       if(err.status !== 404){
+         this.alert.showErrorAlert(
+           'An error occurred while fetching book data. Please refresh the page.',
+           'Error');
+       } else {
+         this.router.navigate['/not-found']
+       }
     });
 
   }

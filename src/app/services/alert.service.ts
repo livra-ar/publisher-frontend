@@ -12,7 +12,7 @@ export class AlertService {
   ) { }
 
   showAlert(message:string, title:string, width:number, type: string){
-    this.dialog.open(AlertDialog, {
+    return this.dialog.open(AlertDialog, {
       width: `${width}px`,
       data: {title, message, type},
     });
@@ -20,7 +20,7 @@ export class AlertService {
 
   showSuccessAlert(message:string = "Action performed successfully",
     title:string = "Success", width = 250){
-    this.showAlert(
+    return this.showAlert(
       message,
       title,
       width,
@@ -31,7 +31,7 @@ export class AlertService {
 
   showErrorAlert(message:string = "An error occured",
     title:string = "Error", width = 250){
-    this.showAlert(
+    return this.showAlert(
       message,
       title,
       width,

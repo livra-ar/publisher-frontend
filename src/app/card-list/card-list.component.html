@@ -23,8 +23,10 @@
 </mat-card>
   </mat-grid-tile>
 
+  <p *ngIf="cards.length === 0" class="m-5">You have not added any items</p>
+
 </mat-grid-list>
 
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center align-items-center my-5" >
   <mat-progress-spinner *ngIf="loading"  mode="indeterminate"></mat-progress-spinner>
 </div>

@@ -25,6 +25,12 @@ export class FileUploadComponent implements ControlValueAccessor {
   @Input ('type')
   public type : 'images' | 'files' = 'images';
 
+  @Input ('hint')
+  public hint:string;
+
+  @Input ('label')
+  public label:string;
+
   @Input ('existingFiles')
   public existingFiles: Observable<string[]>;
 
@@ -176,10 +182,10 @@ export class FileUploadComponent implements ControlValueAccessor {
       this.fileUrls.splice(index, 1);
     }else{
       this.newlyAdded--;
-    }    
+    }
     this.files.splice(index, 1);
     this.changed.emit(this.files);
-    
+
     // this.onChanged(this.files);
     // this.onTouched();
   }

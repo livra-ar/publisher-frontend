@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { ContentService } from '@app/services/content.service';
 import { AlertService } from '@app/services/alert.service';
 import { Router } from '@angular/router';
@@ -24,14 +25,25 @@ export class ContentDetailComponent implements OnInit {
   ngOnInit(): void {
    this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
-        return this.contentService.getById(params.get('id'));
+        const id = params.get('id');
+        if (id.match(/^[0-9a-fA-F]{24}$/)) {
+          return this.contentService.getById(id);
+        } else {
+            return throwError({status: 404})
+        }
+
       })
     ).subscribe(content=>  {
       this.content = content
     }, err => {
+
+      if(err.status !== 404){
       this.alert.showErrorAlert(
         'An error occurred while fetching content data. Please refresh the page.',
         'Error');
+      }else{
+        this.router.navigate(['/not-found']);
+      }
     });
   }
 

@@ -3,7 +3,6 @@ import { AbstractControl, ValidatorFn, FormGroup, ValidationErrors} from '@angul
 export const passwordConfirmValidator: ValidatorFn = (control: FormGroup): ValidationErrors| null => {
     const password = control.get('password');
     const confirm = control.get('confirm');
-    return password && confirm 
-      && password.value !== confirm.value ? {'unmatchingPasswords': true} : null;
+    return password.value != confirm.value ? {'unmatchingPasswords': true} : null;
 }
 

@@ -72,6 +72,19 @@ export class BookEditComponent implements OnInit {
 
   }
 
+
+  get title(){
+    return this.bookEditForm.get('title');
+  }
+
+  get isbn(){
+    return this.bookEditForm.get('isbn');
+  }
+
+  get author(){
+    return this.bookEditForm.get('author');
+  }
+
   onFilesChange(files){
     if (files.length > 0){
       this.fileError = false;

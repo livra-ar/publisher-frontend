@@ -1,4 +1,7 @@
 <div style="text-align:center">
+  <div class="text-left">
+    <small style="color:rgba(0,0,0,.6)">{{label || 'File'}}</small>
+  </div>
 
 
             <ul *ngIf="files.length > 0" class="list-group" style="">
@@ -30,6 +33,10 @@
                   No {{type}} selected
                 </li>
             </ul>
+            <div>
+
+              <small style="color:rgba(0,0,0,.6);">{{hint}}</small>
+            </div>
             <button class="my-3" [disabled]="files.length >= maximum" mat-flat-button color="primary" (click)="onClick()">
                 <mat-icon>add_circle</mat-icon>
                 Add {{type | titlecase}}

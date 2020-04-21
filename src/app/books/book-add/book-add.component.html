@@ -12,18 +12,28 @@
               <mat-form-field>
                 <mat-label>Title</mat-label>
                 <input matInput name="title" formControlName="title" type="text">
+                <mat-error *ngIf="title.invalid && (title.dirty || title.touched) && title.errors.required">
+                  Title is required
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="form-group">
               <mat-form-field>
                 <mat-label>ISBN</mat-label>
                 <input matInput name="isbn" formControlName="isbn" type="text">
+                <!-- <mat-hint>ISBN must be unique</mat-hint> -->
+                <mat-error *ngIf="isbn.invalid && (isbn.dirty || isbn.touched) && (isbn.errors.required || isbn.errors.invalidISBN)">
+                  A valid ISBN is required
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="form-group">
               <mat-form-field>
                 <mat-label for="author">Author</mat-label>
                 <input matInput name="author" formControlName="author" type="text">
+                <mat-error *ngIf="author.invalid && (author.dirty || author.touched) && author.errors.required">
+                  Author is required
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="form-group">
@@ -35,10 +45,12 @@
 
           </form></div>
               <div class="col">
-              <app-file-upload [max]="maxFiles" (changed)="onFilesChange($event)" (uploaded)="onUploadComplete($event)">
+              <app-file-upload label="Book Covers" hint="Upload at least 1 cover picture (max. 3). Use HQ images with 1.6:1 height/width ratio." [max]="maxFiles" (changed)="onFilesChange($event)" (uploaded)="onUploadComplete($event)">
               </app-file-upload>
+
                  <button class="w-100 p-1" (click)="onSubmit()"color="primary" mat-flat-button type="submit" [disabled]="!addBookForm.valid || fileError">Add Book</button>
               </div>
+
             </div>
           </div>
         </div>

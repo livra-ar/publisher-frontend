@@ -40,6 +40,17 @@ export class BookAddComponent implements OnInit {
     }]
   });
 
+  get title(){
+    return this.addBookForm.get('title');
+  }
+
+  get isbn(){
+    return this.addBookForm.get('isbn');
+  }
+
+  get author(){
+    return this.addBookForm.get('author');
+  }
   ngOnInit(): void {
 
   }
