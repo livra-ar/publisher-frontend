@@ -10,11 +10,16 @@
   <img mat-card-image class="rounded"  [src]="card.image" alt="Cover Image">
 </div>
   <mat-card-content class="mt-2">
-  <div *ngIf="!card.active && card.type === 'content'" class="my-1">
+  <div *ngIf="!card.active" class="my-1">
   <mat-chip-list aria-label="Tags">
     <mat-chip>Unpublished</mat-chip>
   </mat-chip-list>
   </div>
+  <div *ngIf="card.active" class="my-1">
+    <mat-chip-list aria-label="Tags">
+      <mat-chip color="accent">Published</mat-chip>
+    </mat-chip-list>
+    </div>
   <button [routerLink]="card.link" mat-flat-button color="primary" class="w-100">View</button>
   </mat-card-content>
   <mat-card-actions>
@@ -28,5 +33,5 @@
 </mat-grid-list>
 
 <div class="d-flex justify-content-center align-items-center my-5" >
-  <mat-progress-spinner *ngIf="loading"  mode="indeterminate"></mat-progress-spinner>
+  <mat-progress-spinner diameter="30" *ngIf="loading"  mode="indeterminate"></mat-progress-spinner>
 </div>

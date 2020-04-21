@@ -30,6 +30,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AlertDialog } from './shared/alert/alert.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CardListModule } from '@app/card-list/card-list.module';
+import { HomeComponent } from './home/home.component';
 // import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
@@ -41,7 +42,8 @@ import { CardListModule } from '@app/card-list/card-list.module';
     LoginComponent,
     RegisterComponent,
     PageNotFoundComponent,
-    AlertDialog
+    AlertDialog,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

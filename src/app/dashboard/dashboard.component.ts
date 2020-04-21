@@ -23,7 +23,8 @@ export class DashboardComponent implements OnInit {
           link: '/books/'+book.id,
           title: book.title,
           image: (book.covers) ? book.covers[0]: null,
-          type: 'book'
+          type: 'book',
+          active: book.active
         }));
       })
       );

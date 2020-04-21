@@ -7,7 +7,7 @@
 
                 <h1 class="mt-4 font-weight-bold">{{book?.title  }}</h1>
                 <h4 class="font-italic">by {{book?.authors.join(', ') }}</h4>
-                <div *ngIf="book.publisher.id == user.id">
+                <div *ngIf="book?.publisher?.id == user.id">
    <button routerLink='/books/edit/{{book?.id}}' mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
     <mat-icon>edit</mat-icon>
   </button>

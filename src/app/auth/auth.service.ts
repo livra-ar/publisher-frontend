@@ -62,7 +62,8 @@ export class AuthService {
   register(userInfo: RegisterUserInfo){
     return this.http.post<LoggedInUserInfo>(`${this.serverUrl}/user/`, userInfo).pipe(
      tap(loggedInUser => {
-        this._storeLogin(loggedInUser);
+       // this._storeLogin(loggedInUser);
+       return loggedInUser;
      })
     );
   }
@@ -70,8 +71,6 @@ export class AuthService {
   emailExists(email: string): Observable<boolean>{
     return this.http.head<any>(
       `${this.serverUrl}/user/emails/${email}/`, {'observe' : 'response'}
-    return this.getCurrentUser()?.token;
-    return this.getCurrentUser()?.token;
     ).pipe(
      map(response => {
        return response.status === 200;
