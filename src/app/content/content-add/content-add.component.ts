@@ -38,7 +38,7 @@ export class ContentAddComponent implements OnInit {
   fileUrls;
   imageUrls;
   books$
-
+  saving=false;
   @ViewChild('fileUpload')
   fileUpload : FileUploadComponent;
 
@@ -77,6 +77,7 @@ export class ContentAddComponent implements OnInit {
 
 
   onSubmit(){
+    this.saving = true;
     this.fileUpload.saveChanges();
   }
 
@@ -90,11 +91,13 @@ export class ContentAddComponent implements OnInit {
       file: this.fileUrls[0],
       images: this.imageUrls
     }).subscribe(content=> {
+      this.saving = false;
       this.alert.showSuccessAlert(
         'Content successfully added!',
         'Success');
       this.router.navigate([`content/${content.id}`])
     }, err => {
+      this.saving = false;
       this.alert.showErrorAlert(
         'An error occurred while adding content. Please refresh the page and try again.',
         'Error');

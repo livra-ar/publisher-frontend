@@ -26,7 +26,7 @@ export class BookDetailComponent implements OnInit {
   public book;
   user;
   public content = new BehaviorSubject<any[]>([]);
-
+  loading = true;
   ngOnInit(): void {
 
    this.route.paramMap.pipe(
@@ -40,6 +40,7 @@ export class BookDetailComponent implements OnInit {
       })
     ).subscribe(book => {
       this.book = book;
+      this.loading = false;
       this.contentService.getByBookId(book.id).subscribe(content=>{
         this.content.next(content.map(content => ({
           link: '/content/'+content.id,

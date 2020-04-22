@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -59,6 +60,7 @@ import { HomeComponent } from './home/home.component';
     MatDialogModule,
     MatFormFieldModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
     CardListModule,
     BooksModule,
     ContentModule,

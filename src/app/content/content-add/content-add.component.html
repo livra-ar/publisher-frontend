@@ -2,9 +2,12 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body position-relative">
           <h5 class="card-title text-center">Add Content</h5>
-          <div class="container mt-3">
+          <div *ngIf="saving" class="submitting-spinner" >
+            <mat-progress-spinner diameter="30"   mode="indeterminate"></mat-progress-spinner>
+          </div>
+          <div class="container mt-3" [style.opacity]="saving ? 0.7 : 1">
             <div class="row">
               <div class="col">
                 <form [formGroup]="addContentForm" (ngSubmit)="onSubmit">
@@ -54,7 +57,7 @@
 
               <app-file-upload label="Preview Images"  #imageUpload [max]="maxImageFiles" (changed)="onImageInputChange($event)" type="images" (uploaded)="onImageUploadComplete($event)">
               </app-file-upload>
-                 <button class="w-100 p-1" (click)="onSubmit()"color="primary" mat-flat-button type="submit" [disabled]="!addContentForm.valid || fileError || imageError">Add Content</button>
+                 <button class="w-100 p-1" (click)="onSubmit()"color="primary" mat-flat-button type="submit" [disabled]="!addContentForm.valid || fileError || imageError || saving">Add Content</button>
               </div>
             </div>
           </div>

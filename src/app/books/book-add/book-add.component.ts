@@ -26,7 +26,7 @@ export class BookAddComponent implements OnInit {
   private minFiles = 1;
   public maxFiles = 3;
   public fileError = true;
-
+  saving = false;
   @ViewChild(FileUploadComponent)
   private fileUploadComponent: FileUploadComponent;
 
@@ -66,12 +66,13 @@ export class BookAddComponent implements OnInit {
         authors: [this.addBookForm.get('author').value],
         covers: fileUrls
         }).subscribe(book=>{
+          this.saving = false;
           this.alert.showSuccessAlert(
             'Book was added successfully',
             'Success');
           this.router.navigate([`books/${book.id}`]);
         }, err => {
-          console.log(err);
+          this.saving = false;
           this.alert.showErrorAlert(
             'An error occurred while adding book. Please refresh the page and try again.',
             'Error');
@@ -80,6 +81,7 @@ export class BookAddComponent implements OnInit {
 
   onSubmit(){
     if (!this.fileError) {
+      this.saving = true;
       this.fileUploadComponent.saveChanges();
     }
   }

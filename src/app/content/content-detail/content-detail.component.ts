@@ -24,6 +24,7 @@ export class ContentDetailComponent implements OnInit {
   content;
   id;
     user;
+    loading=true;
   ngOnInit(): void {
    this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
@@ -36,7 +37,8 @@ export class ContentDetailComponent implements OnInit {
 
       })
     ).subscribe(content=>  {
-      this.content = content
+      this.content = content;
+      this.loading = false;
     }, err => {
 
       if(err.status != 404){

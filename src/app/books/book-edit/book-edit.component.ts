@@ -26,7 +26,8 @@ export class BookEditComponent implements OnInit {
   fileError: boolean;
   maxFiles = 3;
   existingFiles= new BehaviorSubject(null);
-
+  loading=true;
+  saving=false;
   public  bookEditForm = this.fb.group({
     title: ['', Validators.required],
     isbn: [{
@@ -63,6 +64,7 @@ export class BookEditComponent implements OnInit {
       this.bookEditForm.get('publisher').setValue(this.book.publisher.name);
       this.fileError = this.book.covers.length < 1;
       this.existingFiles.next(this.book.covers);
+      this.loading = false;
     },
     error => {
       this.alert.showErrorAlert(
@@ -101,12 +103,14 @@ export class BookEditComponent implements OnInit {
       isbns: this.book.isbns,
       covers: files
     }).subscribe(book => {
+      this.saving = false;
       this.alert.showSuccessAlert(
         'Changes were successfully saved',
         'Update successful');
       this.router.navigate([`/books/${book.id}`]);
     },
     err => {
+      this.saving = false;
       this.alert.showErrorAlert(
         'Please refresh the page and try again',
         'Error occured while updating');
@@ -114,6 +118,7 @@ export class BookEditComponent implements OnInit {
   }
 
   public onSubmit(){
+    this.saving =true;
    this.fileUpload.saveChanges();
   }
 }

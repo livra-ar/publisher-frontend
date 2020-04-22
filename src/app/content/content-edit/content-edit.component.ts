@@ -43,6 +43,8 @@ export class ContentEditComponent implements OnInit {
   @ViewChild('fileUpload')
   fileUpload : FileUploadComponent;
   books
+  loading = true;
+  saving = false;
 
   @ViewChild('imageUpload')
   imageUpload : FileUploadComponent;
@@ -69,6 +71,7 @@ export class ContentEditComponent implements OnInit {
          this.existingImages.next(content.images);
          this.fileError = this.content.file == '' || this.content.file == null;
          this.imageError = this.content.images.length < 1;
+         this.loading = false;
 
      }, err => {
       this.alert.showErrorAlert(
@@ -88,6 +91,7 @@ export class ContentEditComponent implements OnInit {
   }
 
   onSubmit(){
+    this.saving= true;
     this.fileUpload.saveChanges();
   }
 
@@ -102,10 +106,12 @@ export class ContentEditComponent implements OnInit {
       covers: this.imageUrls,
       book: this.editContentForm.get('book').value
     }).subscribe(content=> {
+      this.saving = false;
       this.alert.showSuccessAlert(
         'Content successfully updated!',
         'Success');
     }, err=> {
+      this.saving = false;
       this.alert.showErrorAlert(
         'An error occurred while updating content. Please refresh the page and try again.',
         'Error');

@@ -6,9 +6,11 @@
 
       <div class="card">
 
-  <div class="card-body">
+  <div class="card-body position-relative">
     <h5 class="card-title text-center">Register</h5>
-
+    <div *ngIf="submitting" class="submitting-spinner">
+      <mat-progress-spinner diameter="30"   mode="indeterminate"></mat-progress-spinner>
+    </div>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 <div class="form-group"><mat-form-field>    <mat-label>Display Name</mat-label>
 
@@ -22,7 +24,7 @@
 <div class="form-group">
     <mat-form-field><mat-label>Email</mat-label>
           <input matInput formControlName="email" name="email" type="text" required>
-		<mat-spinner *ngIf="true"  style="float: right; margin-left: 8px" matSuffix></mat-spinner>
+		<mat-progress-spinner *ngIf="true" diameter="18" style="float: right; margin-left: 8px" matSuffix></mat-progress-spinner>
             <mat-error *ngIf="email.invalid && (email.dirty || email.touched) && email.errors?.required || email.errors?.invalidPattern">
                 A valid email is required
             </mat-error>
@@ -55,7 +57,7 @@
         </mat-error>
 </mat-form-field></div>
 
-  <button class="w-100 p-1" color="primary" mat-flat-button type="submit" [disabled]="!registerForm.valid">Register</button>
+  <button class="w-100 p-1" color="primary" mat-flat-button type="submit" [disabled]="!registerForm.valid || submitting">Register</button>
 </form>
 
   </div>

@@ -5,10 +5,12 @@
 
       <div class="card">
 
-  <div class="card-body">
+  <div class="card-body position-relative">
     <h5 class="card-title text-center">Login</h5>
-
-    <form class="mt-4 justify-content-center" action="" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="submitting" class="submitting-spinner" >
+      <mat-progress-spinner diameter="30"   mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <form [style.opacity]="submitting ? 0.7 : 1" class="mt-4 justify-content-center" action="" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
       {{ error }}
 
@@ -50,7 +52,7 @@
 </div>
 
 
-  <button class="w-100 p-1" color="primary" mat-flat-button type="submit" [disabled]="!loginForm.valid">Login</button>
+  <button class="w-100 p-1" color="primary" mat-flat-button type="submit" [disabled]="!loginForm.valid || submitting">Login</button>
 </form>
   </div>
 </div>

@@ -10,6 +10,7 @@ import { ContentEditComponent } from './content-edit/content-edit.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,6 +33,7 @@ import { FileUploadModule } from '@app/file-upload/file-upload.module';
     MatInputModule,
     MatIconModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     FileUploadModule,
     MatSelectModule,
 

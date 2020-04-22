@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit{
               public alert: AlertService
               ) {
                }
-
+  submitting = false;
   ngOnInit(){
 
   }
@@ -46,10 +46,11 @@ export class LoginComponent implements OnInit{
   }
 
   onSubmit(){
+    this,this.submitting = true;
     this.authService.login(this.email.value, this.password.value).subscribe(
       user => this.router.navigate([this.authService.redirectUrl]),
       err => {
-        console.log(err);
+        this.submitting = false;
         this.alert.showErrorAlert(err.error.non_field_errors || err.statusText,'Could not login');
       }
     );

@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   matcher = new MyErrorStateMatcher();
-
+  submitting = false;
   public registerForm: FormGroup = this.fb.group({
     displayName: ['', [Validators.required]],
     email: ['', {
@@ -82,6 +82,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(){
+    this.submitting = true;
     this.authService.register({
       name: this.registerForm.get('displayName').value,
       email: this.registerForm.get('email').value,
@@ -94,6 +95,7 @@ export class RegisterComponent implements OnInit {
         });
       },
       err => {
+        this.submitting = false;
         this.alert.showErrorAlert(err.statusText, 'Error');
 
       }

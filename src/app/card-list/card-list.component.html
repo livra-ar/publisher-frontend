@@ -28,7 +28,7 @@
 </mat-card>
   </mat-grid-tile>
 
-  <p *ngIf="cards.length === 0" class="m-5">You have not added any items</p>
+  <p *ngIf="!loading && cards.length === 0" class="m-5">You have not added any items</p>
 
 </mat-grid-list>
 
