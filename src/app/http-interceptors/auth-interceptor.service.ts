@@ -3,7 +3,7 @@ import { HttpEvent, HttpRequest, HttpInterceptor, HttpHandler, HttpErrorResponse
 import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AuthService } from '@app/auth/auth.service';
-import { AlertService } from '@app/services/alert.service';
+import { DialogService } from '@app/services/dialog.service';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class AuthInterceptorService implements HttpInterceptor{
 
   constructor(
     private authService: AuthService,
-    private alert: AlertService,
+    private alert: DialogService,
     private router: Router
   ) { }
 

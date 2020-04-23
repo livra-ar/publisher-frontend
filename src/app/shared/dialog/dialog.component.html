@@ -1,0 +1,13 @@
+<h5 mat-dialog-title>{{data.title}}</h5>
+<div mat-dialog-content>
+  <p>{{data.message}}</p>
+</div>
+
+<div *ngIf="data.type == 'confirm'" class="justify-content-end" mat-dialog-actions>
+  <button mat-stroked-button color="warn" mat-dialog-close="true">Yes</button>
+  <button mat-stroked-button mat-dialog-close  cdkFocusInitial>No</button>
+</div>
+
+<div *ngIf="data.type.endsWith('alert')" class="justify-content-end" mat-dialog-actions>
+  <button mat-stroked-button [color]="data.type &&  data.type === 'error_alert' ? 'warn' : 'primary'" mat-dialog-close="true"  cdkFocusInitial>Close</button>
+</div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { BooksService } from '@app/services/books.service';
 import { ContentService } from '@app/services/content.service';
-import { AlertService } from '@app/services/alert.service';
+import { DialogService } from '@app/services/dialog.service';
 import { of, BehaviorSubject, throwError } from 'rxjs';
 import { AuthService } from '@app/auth/auth.service';
 import { switchMap, tap } from 'rxjs/operators';
@@ -20,7 +20,7 @@ export class BookDetailComponent implements OnInit {
     private bookService: BooksService,
     private authService: AuthService,
     private contentService: ContentService,
-    private alert: AlertService
+    private alert: DialogService
   ) { }
 
   public book;

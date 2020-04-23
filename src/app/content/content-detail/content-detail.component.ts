@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { ContentService } from '@app/services/content.service';
-import { AlertService } from '@app/services/alert.service';
+import { DialogService } from '@app/services/dialog.service';
 import { AuthService } from '@app/auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class ContentDetailComponent implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private contentService: ContentService,
-    private alert: AlertService,
+    private alert: DialogService,
     private authService: AuthService,
     private router: Router
     ) { }
@@ -54,18 +54,25 @@ export class ContentDetailComponent implements OnInit {
   }
 
   delete(): void{
-    this.contentService.deleteContent(this.content.id).subscribe(
-      message => {
-        this.alert.showSuccessAlert(
-          'Book successfully deleted!',
-          'Success');
-        this.router.navigate(['/dashboard']);
-      },
-      err => {
-        this.alert.showErrorAlert(
-          'An error occurred while deleting the book. Please refresh the page and try again.',
-          'Error');
-      }
-    );
-  }
+
+    this.alert.showConfirm().afterClosed().subscribe(
+      value => {
+        if (value){
+          this.contentService.deleteContent(this.content.id).subscribe(
+            message => {
+              this.alert.showSuccessAlert(
+                'Book successfully deleted!',
+                'Success');
+              this.router.navigate(['/dashboard']);
+            },
+            err => {
+              this.alert.showErrorAlert(
+                'An error occurred while deleting the book. Please refresh the page and try again.',
+                'Error');
+            });
+          }
+      });
+
+     }
+
 }

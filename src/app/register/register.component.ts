@@ -5,7 +5,7 @@ import { passwordConfirmValidator } from '@app/shared/password-confirm.directive
 import { UniqueEmailValidator } from '@app/shared/unique-email.directive';
 import { VALIDATION } from '@app/shared/validation-constants.ts';
 import { AuthService } from '@app/auth/auth.service';
-import { AlertService } from '@app/services/alert.service';
+import { DialogService } from '@app/services/dialog.service';
 import { Router } from '@angular/router';
 
 import {ErrorStateMatcher} from '@angular/material/core';
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService:AuthService,
-    private alert: AlertService,
+    private alert: DialogService,
     private fb:FormBuilder,
     private router: Router,
     private uniqueEmailValidator: UniqueEmailValidator

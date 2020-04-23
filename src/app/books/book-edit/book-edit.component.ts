@@ -5,7 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ISBNValidator } from '@app/shared/isbn.directive';
 import { AuthService } from '@app/auth/auth.service';
 import { BooksService } from '@app/services/books.service';
-import { AlertService } from '@app/services/alert.service';
+import { DialogService } from '@app/services/dialog.service';
 import { FileUploadComponent } from '@app/file-upload/file-upload.component';
 import { BehaviorSubject } from 'rxjs';
 
@@ -47,7 +47,7 @@ export class BookEditComponent implements OnInit {
     private fb:FormBuilder,
     private authService: AuthService,
     private booksService: BooksService,
-    private alert: AlertService
+    private alert: DialogService
 
   ) { }
 

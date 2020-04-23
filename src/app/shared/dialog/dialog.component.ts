@@ -3,20 +3,20 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 interface AlertData{
   title: string;
   message: string;
-  type ?: string;
+  type ?: 'success_alert'| 'error_alert' | 'confirm';
 }
 @Component({
   selector: 'app-alert',
-  templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss']
+  templateUrl: './dialog.component.html',
+  styleUrls: ['./dialog.component.scss']
 })
-export class AlertDialog implements OnInit {
+export class DialogComponent implements OnInit {
 
 
   ngOnInit(): void {
   }
   constructor(
-    public dialogRef: MatDialogRef<AlertDialog>,
+    public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AlertData) {}
 
 

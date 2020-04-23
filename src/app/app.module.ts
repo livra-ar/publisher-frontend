@@ -28,7 +28,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AlertDialog } from './shared/alert/alert.component';
+import { DialogComponent } from './shared/dialog/dialog.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CardListModule } from '@app/card-list/card-list.module';
 import { HomeComponent } from './home/home.component';
@@ -43,7 +43,7 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     RegisterComponent,
     PageNotFoundComponent,
-    AlertDialog,
+    DialogComponent,
     HomeComponent
   ],
   imports: [

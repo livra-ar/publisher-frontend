@@ -11,12 +11,16 @@
       <h3 class="font-weight-bold mt-4  ">{{ content?.title}}</h3>
       <h4>by <span  class="font-italic">{{ content?.creator?.name }}</span></h4>
 
-        <div *ngIf="content?.creator.id == user.id"> <button routerLink='/content/edit/{{content?.id}}' mat-icon-button color="primary" aria-label="Example icon-button with a heart icon">
+        <div *ngIf="content?.creator.id == user.id"> <button routerLink='/content/edit/{{content?.id}}' mat-icon-button color="primary" aria-label="Edit Content Details Button">
     <mat-icon>edit</mat-icon>
   </button>
-   <button (click)="delete()" mat-icon-button color="warn" aria-label="Example icon-button with a heart icon">
+   <button (click)="delete()" mat-icon-button color="warn" aria-label="Delete Content Button">
     <mat-icon>delete</mat-icon>
   </button>
+  <a [href]="content?.file" mat-icon-button aria-label="Download File Button">
+    <mat-icon>cloud_download</mat-icon>
+  </a>
+
   </div>
       <p class="font-weight-light text-break">
         {{ content?.description }}

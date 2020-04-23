@@ -6,7 +6,7 @@ import { ContentService } from '@app/services/content.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FileUploadComponent } from '@app/file-upload/file-upload.component';
 import { BooksService } from '@app/services/books.service';
-import { AlertService } from '@app/services/alert.service';
+import { DialogService } from '@app/services/dialog.service';
 @Component({
   selector: 'app-content-edit',
   templateUrl: './content-edit.component.html',
@@ -29,7 +29,7 @@ export class ContentEditComponent implements OnInit {
     private contentService: ContentService,
     private booksService: BooksService,
     private fb: FormBuilder,
-    private alert: AlertService
+    private alert: DialogService
   ) { }
 
     fileError = true;

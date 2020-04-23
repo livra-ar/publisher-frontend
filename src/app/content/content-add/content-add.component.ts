@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { catchError,tap } from 'rxjs/operators';
 import { FileUploadComponent } from '@app/file-upload/file-upload.component';
 import { BooksService } from '@app/services/books.service';
-import { AlertService } from '@app/services/alert.service';
+import { DialogService } from '@app/services/dialog.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-content-add',
@@ -28,7 +28,7 @@ export class ContentAddComponent implements OnInit {
     private booksService: BooksService,
     private fb: FormBuilder,
     private router: Router,
-    private alert: AlertService
+    private alert: DialogService
   ) { }
 
   fileError = true;

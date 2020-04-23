@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { BooksService } from '@app/services/books.service';
 import { AuthService } from '@app/auth/auth.service'
-import { AlertService} from '@app/services/alert.service';
+import { DialogService} from '@app/services/dialog.service';
 // import { Book } from '@app/book';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ISBNValidator } from '@app/shared/isbn.directive';
@@ -20,7 +20,7 @@ export class BookAddComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
-    private alert: AlertService
+    private alert: DialogService
   ) { }
 
   private minFiles = 1;

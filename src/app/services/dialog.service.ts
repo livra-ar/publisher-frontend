@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertDialog } from '@app/shared/alert/alert.component';
+import { DialogComponent } from '@app/shared/dialog/dialog.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AlertService {
+export class DialogService {
 
   constructor(
     private dialog: MatDialog
   ) { }
 
-  showAlert(message:string, title:string, width:number, type: string){
-    return this.dialog.open(AlertDialog, {
+  showDialog(message:string, title:string, width:number, type: string){
+    return this.dialog.open(DialogComponent, {
       width: `${width}px`,
       data: {title, message, type},
     });
@@ -20,24 +20,33 @@ export class AlertService {
 
   showSuccessAlert(message:string = "Action performed successfully",
     title:string = "Success", width = 250){
-    return this.showAlert(
+    return this.showDialog(
       message,
       title,
       width,
-      'success'
+      'success_alert'
     );
   }
 
 
   showErrorAlert(message:string = "An error occured",
     title:string = "Error", width = 250){
-    return this.showAlert(
+    return this.showDialog(
       message,
       title,
       width,
-      'error'
+      'error_alert'
     );
   }
 
+  showConfirm(message:string = "Are you sure?",
+  title:string="Yes", width= 250){
+    return this.showDialog(
+      message,
+      title,
+      width,
+      'confirm'
+    );
+  }
 
 }

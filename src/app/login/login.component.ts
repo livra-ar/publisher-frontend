@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '@app/auth/auth.service';
 import { patternValidator } from '../shared/pattern.directive';
 import { VALIDATION } from '@app/shared/validation-constants';
-import { AlertService } from '@app/services/alert.service';
+import { DialogService } from '@app/services/dialog.service';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit{
   constructor(private fb:FormBuilder,
               private authService:AuthService,
               private router: Router,
-              public alert: AlertService
+              public alert: DialogService
               ) {
                }
   submitting = false;
