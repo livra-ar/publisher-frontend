@@ -40,7 +40,7 @@ export class DialogService {
   }
 
   showConfirm(message:string = "Are you sure?",
-  title:string="Yes", width= 250){
+  title:string="Confirm", width= 250){
     return this.showDialog(
       message,
       title,
