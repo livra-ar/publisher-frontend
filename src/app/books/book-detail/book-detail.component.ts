@@ -64,19 +64,25 @@ export class BookDetailComponent implements OnInit {
   }
 
   delete(){
-    this.bookService.deleteBook(this.book.id).subscribe(
-      message =>  {
-        this.alert.showSuccessAlert(
-          'Book successfully deleted!',
-          'Success');
-        this.router.navigate(['/dashboard']);
-      },
-      err => {
-        this.alert.showErrorAlert(
-          'An error occurred while deleting book. Please try again.',
-          'Error');
-      }
-    );
+
+    this.alert.showConfirm().afterClosed().subscribe(
+      value => {
+        this.bookService.deleteBook(this.book.id).subscribe(
+          message =>  {
+            this.alert.showSuccessAlert(
+              'Book successfully deleted!',
+              'Success');
+            this.router.navigate(['/dashboard']);
+          },
+          err => {
+            this.alert.showErrorAlert(
+              'An error occurred while deleting book. Please try again.',
+              'Error');
+          }
+        );
+
+    });
+
   }
 
 }

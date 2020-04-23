@@ -61,13 +61,13 @@ export class ContentDetailComponent implements OnInit {
           this.contentService.deleteContent(this.content.id).subscribe(
             message => {
               this.alert.showSuccessAlert(
-                'Book successfully deleted!',
+                'Content successfully deleted!',
                 'Success');
               this.router.navigate(['/dashboard']);
             },
             err => {
               this.alert.showErrorAlert(
-                'An error occurred while deleting the book. Please refresh the page and try again.',
+                'An error occurred while deleting the content. Please refresh the page and try again.',
                 'Error');
             });
           }
