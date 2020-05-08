@@ -19,7 +19,7 @@ export class FileUploadService {
 
     public uploadFiles(formData: FormData, type: 'images' | 'files'){
       let url = this.SERVER_URL  + '/upload';
-      let fileName = 'file';
+      let fileName = formData.get('file')['name'];
       if (type === 'files'){
         url += `/raw/${fileName}`;
       }else{
