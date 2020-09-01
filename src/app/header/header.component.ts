@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@app/auth/auth.service';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-header',
@@ -12,21 +10,34 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   constructor(
-    private authService: AuthService,
-    private router: Router
+   
+ 
   ) { }
 
-  loggedIn$:Observable<any>;
+  
+  @Output()
+  menuBtnClick = new EventEmitter();
+
+  @Output()
+  logoutBtnClick = new EventEmitter();
+
+  @Output()
+  loginBtnClick = new EventEmitter();
+
+  @Output()
+  registerBtnClick = new EventEmitter();
+
+  @Output()
+  addContentBtnClick = new EventEmitter();
+
+  @Output()
+  addBookBtnClick = new EventEmitter();
+
+  @Input()
+  loggedIn:Observable<any>;
 
   ngOnInit(): void {
-    this.loggedIn$ = this.authService.currentUser$.asObservable().pipe(
-      map(user=> user !== null));
+   
 
   }
-
-  logout(){
-    this.authService.logout();
-    this.router.navigate(['/login']);
-  }
-
 }

@@ -1,24 +1,37 @@
 <header>
 
 <mat-toolbar color="primary" >
-  <a class="text-white text-decoration-none" routerLink="">
-  <h1>
-    AR Platform
-  </h1>
+  <a class="text-white text-decoration-none logo" routerLink="">
+    <img id="logo-icon" src="assets/logo.png">
+<svg width="53" height="19.032" viewBox="0 0 50.328 19.032" xmlns="http://www.w3.org/2000/svg"><g id="svgGroup" stroke-linecap="round" fill-rule="evenodd" font-size="9pt" stroke="#000" stroke-width="0.25mm" fill="white" style="stroke:white;stroke-width:0.25mm;fill:white"><path d="M 50.328 9.432 L 50.328 18.696 L 48.96 18.696 L 48.432 16.56 A 9.106 9.106 0 0 1 46.794 17.968 A 6.12 6.12 0 0 1 43.368 19.032 Q 42.185 19.032 41.411 18.629 A 2.491 2.491 0 0 1 40.692 18.072 Q 39.883 17.161 39.842 15.643 A 6.062 6.062 0 0 1 39.84 15.48 A 4.248 4.248 0 0 1 40.002 14.279 A 3.296 3.296 0 0 1 40.86 12.84 Q 41.723 11.988 43.864 11.53 A 16.937 16.937 0 0 1 44.688 11.376 L 48.264 10.8 L 48.264 9.432 A 6.525 6.525 0 0 0 48.214 8.59 Q 48.095 7.678 47.693 7.179 A 1.612 1.612 0 0 0 47.508 6.984 Q 46.814 6.367 45.645 6.317 A 4.921 4.921 0 0 0 45.432 6.312 A 4.03 4.03 0 0 0 44.213 6.483 Q 42.941 6.886 42.46 8.241 A 4.516 4.516 0 0 0 42.288 8.88 L 40.608 8.376 A 5.512 5.512 0 0 1 41.093 6.996 A 4.272 4.272 0 0 1 42.216 5.616 A 4.191 4.191 0 0 1 43.737 4.856 Q 44.539 4.632 45.54 4.632 A 7.866 7.866 0 0 1 46.883 4.74 Q 47.624 4.869 48.222 5.151 A 4.062 4.062 0 0 1 48.888 5.544 A 3.005 3.005 0 0 1 49.894 6.847 Q 50.325 7.857 50.328 9.409 A 11.308 11.308 0 0 1 50.328 9.432 Z M 28.56 4.968 L 23.688 18.696 L 21.432 18.696 L 16.56 4.968 L 18.648 4.968 L 22.56 16.296 L 26.472 4.968 L 28.56 4.968 Z M 8.64 18.696 L 0 18.696 L 0 1.176 L 2.112 1.176 L 2.112 17.016 L 8.64 17.016 L 8.64 18.696 Z M 33.552 9.264 L 33.552 18.696 L 31.488 18.696 L 31.488 4.968 L 32.712 4.968 L 33.456 7.416 A 5.913 5.913 0 0 1 35.374 5.478 Q 36.655 4.696 38.376 4.632 L 38.376 6.528 A 6.506 6.506 0 0 0 36.22 6.953 A 5.383 5.383 0 0 0 33.552 9.264 Z M 11.568 18.696 L 11.568 4.968 L 13.632 4.968 L 13.632 18.696 L 11.568 18.696 Z M 48.264 15.12 L 48.264 12.24 L 44.88 12.816 A 8.943 8.943 0 0 0 44.049 13.007 Q 43.228 13.24 42.759 13.589 A 1.962 1.962 0 0 0 42.528 13.788 A 2.208 2.208 0 0 0 41.88 15.389 A 2.738 2.738 0 0 0 41.88 15.396 A 2.885 2.885 0 0 0 41.942 16.014 Q 42.034 16.431 42.259 16.743 A 1.736 1.736 0 0 0 42.384 16.896 Q 42.888 17.448 43.944 17.448 A 4.471 4.471 0 0 0 46.003 16.919 Q 46.692 16.566 47.381 15.975 A 10.8 10.8 0 0 0 48.264 15.12 Z M 12.097 2.592 A 1.606 1.606 0 0 0 12.6 2.664 Q 13.594 2.664 13.811 1.851 A 2.014 2.014 0 0 0 13.872 1.332 A 2.063 2.063 0 0 0 13.82 0.848 Q 13.673 0.241 13.111 0.069 A 1.744 1.744 0 0 0 12.6 0 A 1.799 1.799 0 0 0 12.257 0.031 Q 11.599 0.159 11.432 0.821 A 2.101 2.101 0 0 0 11.376 1.332 Q 11.376 2.355 12.097 2.592 Z" vector-effect="non-scaling-stroke"/></g></svg>
   </a>
   <span class="fill-space"></span>
-  <div class="">
-  <nav class="" *ngIf="!(loggedIn$ | async)">
-        <button mat-button routerLink="/login" routerLinkActive="active">Login</button>
-        <button mat-button routerLink="/register" routerLinkActive="active">Register</button>
+  <div fxShow.lt-md fxHide.gt-sm>
+     <button (click)="menuBtnClick.emit()" mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+        <mat-icon class="menu-button">menu</mat-icon>
+      </button>
+  </div>
+  <div fxHide.lt-md>
+  <nav class="" *ngIf="!(loggedIn | async)">
+<mat-menu #appMenu="matMenu">
+  <button mat-menu-item (click)="loginBtnClick.emit()">Login</button>
+  <button mat-menu-item (click)="registerBtnClick.emit()">Register</button>
+</mat-menu>
+<button mat-button [matMenuTriggerFor]="appMenu">
+  Publishers
+</button>
+        <button mat-button routerLink="/about" routerLinkActive="active">About</button>
+        <button mat-button routerLink="/contact" routerLinkActive="active">Contact</button>
+
+
   </nav>
-  <nav class="" *ngIf="(loggedIn$ | async)">
+  <nav class="" *ngIf="(loggedIn | async)">
     <button mat-button routerLink="/dashboard">Dashboard</button>
-    <button mat-button routerLink='/books/add'>Add Book</button>
-    <button mat-button routerLink='/content/add'>Add Content</button>
+    <button mat-button (click)="addBookBtnClick.emit()">Add Book</button>
+    <button mat-button (click)="addContentBtnClick.emit()">Add Content</button>
   <!--   <button mat-button routerLink='/notifications'>Notifications</button>
     <button mat-button routerLink='/settings'>Settings</button> -->
-    <button mat-button (click)="logout()">Logout</button>
+    <button mat-button (click)="logoutBtnClick.emit()">Logout</button>
   </nav>
   </div>
 
