@@ -1,5 +1,45 @@
-<app-header></app-header>
+
+<mat-drawer-container class="sidenav-container" hasBackdrop="true" style="height: 100vh;">
+  <mat-drawer #drawer mode="over">
+  	 <nav class="" *ngIf="!(loggedIn | async)">
+   
+  <button mat-menu-item (click)="openLogin()">Publisher Login</button>
+  <button mat-menu-item (click)="openRegister()">Publisher Register</button>
+        <button mat-button routerLink="/about" routerLinkActive="active">About</button>
+        <button mat-button routerLink="/contact" routerLinkActive="active">Contact</button>
+
+
+  </nav>
+  <nav class="" *ngIf="(loggedIn | async)">
+  	<div>
+ <button mat-button routerLink="/dashboard">Dashboard</button>
+  	</div>
+   <div>
+   	 <button mat-button (click)="openAddBook()">Add Book</button>
+   </div>
+   <div>
+ <button mat-button (click)="openAddContent()">Add Content</button>
+   </div>
+   
+  <!--   <button mat-button routerLink='/notifications'>Notifications</button>
+    <button mat-button routerLink='/settings'>Settings</button> -->
+    <button mat-button (click)="logout()">Logout</button>
+  </nav>
+  </mat-drawer>
+  <mat-drawer-content>
+    
+    <app-header 
+    (menuBtnClick)="drawer.toggle();"
+    (logoutBtnClick)="logout();"
+     (loginBtnClick)="openLogin();"
+      (registerBtnClick)="openRegister();"
+    (addBookBtnClick)="openAddBook();"
+    (addContentBtnClick)="openAddContent();"
+    [loggedIn]="loggedIn">
+    </app-header>
   <div [@fadeInAnimation]="prepareRoute(outlet)">
     <router-outlet #outlet ></router-outlet>
   </div>
 <app-footer></app-footer>
+  </mat-drawer-content>
+</mat-drawer-container>
