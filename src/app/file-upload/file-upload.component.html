@@ -11,7 +11,7 @@
                           <div class="col-8">
                             <mat-progress-bar [value]="file.progress"></mat-progress-bar>
                               <small class="form-text text-muted" id="file-label">
-                            {{file.data.name}}
+                            <a href="{{file.data.name}}" target="_blank">{{label || 'File'}}#{{i+1}}</a>
                     </small>
                           </div>
                           <div class="col">
