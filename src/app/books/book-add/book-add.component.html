@@ -1,18 +1,19 @@
-<div class="container p-4">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-body position-relative">
-          <h5 class="card-title text-center">Add Book</h5>
+<button (click)="closeModal()" class="close-button" mat-icon-button aria-label="Button to close the form">
+        <mat-icon>close</mat-icon>
+      </button>
+<h2 mat-dialog-title>Add Book</h2>
+<mat-dialog-content>
+
+      
           <div *ngIf="saving" class="submitting-spinner">
             <mat-progress-spinner diameter="30"   mode="indeterminate"></mat-progress-spinner>
           </div>
-          <div class="container mt-3" [style.opacity]="saving ? 0.7 : 1">
-            <div class="row">
-              <div class="col">
+          <div class="container" fxFlex="100" fxLayout="row" [style.opacity]="saving ? 0.7 : 1">
+            
+              <div class="form-side" fxLayout="column" fxFlex="50">
                 <form [formGroup]="addBookForm" (ngSubmit)="onSubmit">
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field appearance="outline">
                 <mat-label>Title</mat-label>
                 <input matInput name="title" formControlName="title" type="text">
                 <mat-error *ngIf="title.invalid && (title.dirty || title.touched) && title.errors.required">
@@ -21,7 +22,7 @@
               </mat-form-field>
             </div>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field appearance="outline">
                 <mat-label>ISBN</mat-label>
                 <input matInput name="isbn" formControlName="isbn" type="text">
                 <!-- <mat-hint>ISBN must be unique</mat-hint> -->
@@ -31,7 +32,7 @@
               </mat-form-field>
             </div>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field appearance="outline">
                 <mat-label for="author">Author</mat-label>
                 <input matInput name="author" formControlName="author" type="text">
                 <mat-error *ngIf="author.invalid && (author.dirty || author.touched) && author.errors.required">
@@ -40,25 +41,26 @@
               </mat-form-field>
             </div>
             <div class="form-group">
-              <mat-form-field>
+              <mat-form-field appearance="outline">
                 <mat-label for="publisher">Publisher</mat-label>
                 <input matInput name="publisher" formControlName="publisher" readonly type="text">
               </mat-form-field>
             </div>
 
           </form></div>
-              <div class="col">
-              <app-file-upload label="Book Covers" hint="Upload at least 1 cover picture (max. 3). Use HQ images with 1.6:1 height/width ratio." [max]="maxFiles" (changed)="onFilesChange($event)" (uploaded)="onUploadComplete($event)">
-              </app-file-upload>
+              <div fxLayout="column" class="form-side">
+                <div>
+<app-file-upload label="Book Covers" hint="Upload at least 1 cover picture (max. 3). Use HQ images with 1.6:1 height/width ratio." [max]="maxFiles" (changed)="onFilesChange($event)" (uploaded)="onUploadComplete($event)">
+                </app-file-upload>
 
-                 <button class="w-100 p-1" (click)="onSubmit()"color="primary" mat-flat-button type="submit" [disabled]="!addBookForm.valid || fileError|| saving">Add Book</button>
+                </div>
+                <div style="margin-top:10px;width:100% ">
+                 <button style="width:100%" (click)="onSubmit()"color="primary" mat-flat-button type="submit" [disabled]="!addBookForm.valid || fileError|| saving">Add Book</button>
+               </div>
               </div>
 
-            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    
 
+
+</mat-dialog-content>
