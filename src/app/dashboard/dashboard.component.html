@@ -1,15 +1,155 @@
-<div class="container" style="background:white;">
-  <div class="row">
-    <div class="col"><h3 class="mt-2 ml-2 font-weight-bold">Dashboard</h3>
+<div style="background-color:#718792;">
+	<!--<h3 style="margin-left: 10px;margin-top:0; ">Dashboard</h3> -->
+	<div class="summary-section">
+		<div fxLayout.gt-sm="row" fxLayout.lt-md="column">
+			<div fxLayout="column" fxFlex.gt-sm="25">
+				<div class="summary-card">
+					<div fxLayout="row">
+						<mat-icon>menu_book</mat-icon>
+					</div>
+					<div fxLayout="row">
+						<span class="counter odometer">
+							{{book_count || 0}}
+						</span>
+					</div>
+					<div fxLayout="row">
+						<p class="summary-title">Books</p>
+					</div>
+				</div>
+			</div>
 
-<mat-tab-group>
-    <mat-tab label="Content">
-      <app-card-list [content]="content$" ></app-card-list>
-   </mat-tab>
-  <mat-tab label="Books">
-    <app-card-list [content]="books$"></app-card-list>
-  </mat-tab>
-</mat-tab-group>
+			<div fxLayout="column" fxFlex.gt-sm="25">
+				<div class="summary-card">
+					<div fxLayout="row">
+						<mat-icon>3d_rotation</mat-icon>
+					</div>
+					<div fxLayout="row">
+						<span class="counter odometer">
+							{{(content_count) || 0}}
+						</span>
+					</div>
+					<div fxLayout="row">
+						<p class="summary-title">AR Content</p>
+					</div>
+				</div>
+			</div>
+
+			<div fxLayout="column" fxFlex.gt-sm="50">
+				<!-- 
+	<div class="summary-card">
+	<div fxLayout="row">
+		<h3>Welcome</h3>
+	</div>		
+	<div fxLayout="row">
+		<p class="summary-title">Downloads</p>
+	</div>
+</div> -->
+			</div>
+			<!-- <div fxLayout="column"  fxFlex.gt-sm="25">
+	<div class="summary-card">
+	<div fxLayout="row">
+		<mat-icon>visibility</mat-icon>
+	</div>
+	<div fxLayout="row">
+		<span class="counter">
+		500
+		</span>
+	</div>			
+	<div fxLayout="row">
+		<p class="summary-title">Content Views</p>
+	</div>
 </div>
-  </div>
+</div> -->
+		</div>
+	</div>
 </div>
+<div class="tab-container">
+	<mat-tab-group animationDuration="0ms" #tabGroup (selectedTabChange)="tabChanged($event)">
+
+		<mat-tab label="Content" fxLayout="column">
+			<div *ngIf="contentLoading" fxLayout="column" fxFlex="100" fxLayoutAlign="begin center">
+				<div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+					<div style="height:50px; width:50px; margin-top:50px;">
+						<mat-progress-spinner diameter="30" *ngIf="contentLoading" mode="indeterminate">
+						</mat-progress-spinner>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="(content$ | async)?.length === 0 && !contentLoading" class="m-5" fxLayout="column" fxFlex="100"
+				fxLayoutAlign="center center" style="margin-top:50px">
+				<div fxLayout="column" fxLayoutAlign="center center">
+					<div>
+						<img style="display:block;" src="assets/augmented-reality.svg" width="128" height="128">
+					</div>
+					<div>
+						<p *ngIf="!query.content" style="font-weight:lighter; text-align:center">Your augmented reality
+							content will appear here!</p>
+						<p *ngIf="query.content !== ''" style="font-weight:lighter; text-align:center">No matching
+							augmented reality content found!</p>
+					</div>
+				</div>
+			</div>
+
+			<div *ngIf="(content$ | async)?.length !== 0" [style.display]="contentLoading ? 'none': 'block'" fxLayout="column" fxFlex="100" style="width:100%">
+				<app-card-list *ngIf="!contentLoading" style="width:100%" [user]="user" id="content-card-list"
+					[content]="content$"></app-card-list>
+				<mat-paginator *ngIf="(content$ | async)?.length"
+					[length]="contentResults" [pageSize]="contentPageSize" [pageSizeOptions]="[4, 8, 12 , 16]"
+					(page)="onPageEvent($event)">
+				</mat-paginator>
+			</div>
+		</mat-tab>
+		<mat-tab label="Books" fxLayout="column" fxFlex="100" fxLayoutAlign="begin center">
+			<div *ngIf="booksLoading" fxLayout="column" fxFlex="100" fxLayoutAlign="center center">
+				<div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+					<div style="height:50px; width:50px; margin-top:50px;">
+						<mat-progress-spinner diameter="30" *ngIf="booksLoading" mode="indeterminate">
+						</mat-progress-spinner>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="(books$ | async)?.length == 0 && !booksLoading" style="margin-top:50px" class="m-5"
+				fxLayout="column" fxFlex="100" fxLayoutAlign="center center">
+				<div fxLayout="column" fxLayoutAlign="center center">
+					<div>
+						<img style="display:block;" src="assets/book.svg" width="128" height="128">
+					</div>
+					<div>
+						<p *ngIf="!query.books" style="font-weight:lighter; text-align:center">Your books will appear
+							here!</p>
+						<p *ngIf="query.books !== ''" style="font-weight:lighter; text-align:center">No matching books
+							found!</p>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="(books$ | async)?.length !== 0 " fxLayout="column" [style.display]="booksLoading ? 'none': 'block'" fxFlex="100" style="width:100%">
+				<app-card-list *ngIf="!booksLoading" style="width:100%" id="books-card-list" [user]="user"
+					[content]="books$"></app-card-list>
+				<mat-paginator *ngIf="(books$ | async)?.length"
+					[length]="bookResults" [pageSize]="bookPageSize" [pageSizeOptions]="[4, 8, 12 , 16]"
+					(page)="onPageEvent($event)">
+				</mat-paginator>
+			</div>
+		</mat-tab>
+	</mat-tab-group>
+	<div class="search-icon">
+		<mat-chip-list style="float:left" *ngIf="query[currentTab] !== ''" aria-label="Fish selection">
+			<mat-chip removable="true" (removed)="queryChange('')">{{query[currentTab]}}
+				<mat-icon matChipRemove>cancel</mat-icon>
+			</mat-chip>
+
+		</mat-chip-list>
+
+		<button matTooltip="Search" mat-icon-button aria-label="Search button" (click)="showSearch()">
+			<mat-icon>search</mat-icon>
+		</button>
+		<button matTooltip="Refresh" mat-icon-button aria-label="Refresh button" (click)="reload()">
+			<mat-icon>refresh</mat-icon> 
+		</button>
+	</div>
+</div>
+<!--
+smashicons
+freepik
+
+	-->

@@ -1,0 +1,49 @@
+.tab-container{
+	position: relative;
+	// display: flex;
+}
+.search-icon{
+	position: absolute;
+	top:0px;
+	right:20px;
+	z-index: 999;
+
+}
+.summary-section mat-icon{
+	font-size: 48px;
+	text-align:center;
+	margin:0px auto 5px auto;	
+	height:48px;
+	width:48px;
+}
+
+.summary-section{
+	text-align:center;
+	margin-bottom:10px;
+	padding-bottom:10px;
+	padding-top:10px
+}
+
+.summary-section .counter{
+	display:block;
+	margin-top:30px;
+	font-size:36px;
+	text-align:center;
+	margin:0 auto;	
+}
+
+.summary-section .summary-title{
+	padding:0;
+	margin:0 auto;	
+}
+
+
+	.summary-card {
+    background: #1c313a;
+    color:white;
+
+    border-radius: 10px;
+    margin: 5px 50px;
+    padding: 20px 0px;
+    box-shadow: rgba(0,0,0,.3) -1px 1px 5px;
+}
