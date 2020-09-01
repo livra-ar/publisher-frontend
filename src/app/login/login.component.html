@@ -1,38 +1,35 @@
-<div class="container p-4">
+<button (click)="closeModal()" class="close-button" mat-icon-button aria-label="Button to close the form">
+        <mat-icon>close</mat-icon>
+      </button>
 
-  <div class="row justify-content-center">
-    <div class="col-md-4">
 
-      <div class="card">
+<h2 mat-dialog-title>{{ (!reset) ? 'Login as a Publisher' : 'Reset Password'}}</h2>
+<mat-dialog-content *ngIf="!reset">
 
-  <div class="card-body position-relative">
-    <h5 class="card-title text-center">Login</h5>
-    <div *ngIf="submitting" class="submitting-spinner" >
+<div *ngIf="submitting" class="submitting-spinner" >
       <mat-progress-spinner diameter="30"   mode="indeterminate"></mat-progress-spinner>
     </div>
-    <form [style.opacity]="submitting ? 0.7 : 1" class="mt-4 justify-content-center" action="" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
+   
       {{ error }}
+       <form [style.opacity]="submitting ? 0.7 : 1" action="" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
- <div class="form-group">
+  <mat-grid-list cols="1" rowHeight="100px">
 
-    <mat-form-field >
+  <mat-grid-tile>
+    <mat-form-field appearance="outline">
     <mat-label>Email</mat-label>
 
-    <input matInput formControlName="email" type="email" name="email" placeholder="user@example.com" required>
+    <input matInput [disabled]="submitting" formControlName="email" type="email" name="email" placeholder="user@example.com" required>
     <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
         <p *ngIf="email.errors.required || email.errors.invalidPattern">
             A valid email is required
         </p>
     </mat-error>
   </mat-form-field>
- </div>
-
-
-<div class="form-group">
-   <mat-form-field >
+</mat-grid-tile>
+  <mat-grid-tile>  <mat-form-field appearance="outline">
  <mat-label>Password</mat-label>
-  <input matInput formControlName="password" type="password" name="password" required>
+  <input matInput [disabled]="submitting" formControlName="password" type="password" name="password" required>
     <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
         <span *ngIf='password.errors.required; else lengthBlock'>
             Password is required
@@ -48,16 +45,49 @@
 
 
     </mat-error>
-     </mat-form-field>
-</div>
+     </mat-form-field></mat-grid-tile>
 
+</mat-grid-list>
 
-  <button class="w-100 p-1" color="primary" mat-flat-button type="submit" [disabled]="!loginForm.valid || submitting">Login</button>
+<button style="width:100%;margin-top:3px;padding:5px"  color="primary" mat-flat-button type="submit" [disabled]="!loginForm.valid || submitting">Login</button>
+<!--<div>
+  <a href="#" (click)="showReset()">Forgot Password?</a>
+  </div>-->
 </form>
-  </div>
-</div>
 
 
+</mat-dialog-content>
+
+
+<mat-dialog-content *ngIf="reset">
+
+<div *ngIf="resetSubmitting" class="submitting-spinner" >
+      <mat-progress-spinner diameter="30"   mode="indeterminate"></mat-progress-spinner>
     </div>
+
+      <p>
+        Please enter your email in the input below to receive a password reset link
+      </p>
+  
+       <form [style.opacity]="resetSubmitting ? 0.7 : 1" action="" [formGroup]="resetForm" (ngSubmit)="onResetSubmit()">
+
+    <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+
+    <input matInput [disabled]="resetSubmitting" formControlName="reset_email" type="email" name="email" placeholder="user@example.com" required>
+    <mat-error *ngIf="reset_email.invalid && (reset_email.dirty || reset_email.touched)">
+        <p *ngIf="reset_email.errors.required || reset_email.errors.invalidPattern">
+            A valid email is required
+        </p>
+    </mat-error>
+  </mat-form-field>
+
+<button style="width:100%;margin-top:3px;padding:5px"  color="primary" mat-flat-button type="submit" [disabled]="!resetForm.valid || resetSubmitting">Request Code</button>
+<div style="text-align:center;font-size:16px;">
+  <br/>
+  <!--<p><a style="color:gray;text-decoration:none" href="#" (click)="showReset()"><< Back To Login</a></p>-->
   </div>
-</div>
+</form>
+
+
+</mat-dialog-content>
