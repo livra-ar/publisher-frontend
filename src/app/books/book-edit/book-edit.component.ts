@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { ActivatedRoute,ParamMap, Router } from '@angular/router';
 import { switchMap, map } from 'rxjs/operators';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -8,7 +8,7 @@ import { BooksService } from '@app/services/books.service';
 import { DialogService } from '@app/services/dialog.service';
 import { FileUploadComponent } from '@app/file-upload/file-upload.component';
 import { BehaviorSubject } from 'rxjs';
-
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-book-edit',
@@ -42,6 +42,8 @@ export class BookEditComponent implements OnInit {
   });
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<BookEditComponent>,
     private route: ActivatedRoute,
     private router: Router,
     private fb:FormBuilder,
@@ -49,28 +51,28 @@ export class BookEditComponent implements OnInit {
     private booksService: BooksService,
     private alert: DialogService
 
-  ) { }
+  ) {
+
+    this.book = data.book;
+   }
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        return this.booksService.getById(params.get('id'));
-      })
-    ).subscribe(book => {
-      this.book = book;
-      this.bookEditForm.get('title').setValue(this.book.title);
-      this.bookEditForm.get('author').setValue(this.book.authors.join(', '));
-      this.bookEditForm.get('isbn').setValue(this.book.isbns.join(', '));
-      this.bookEditForm.get('publisher').setValue(this.book.publisher.name);
+  // this.booksService.getById(this.data.id).subscribe(book => {
+      
+      this.title.setValue(this.book.title);
+      this.author.setValue(this.book.authors.join(', '));
+      this.isbn.setValue(this.book.isbns.join(', '));
+      this.publisher.setValue(this.book.publisher.name);
       this.fileError = this.book.covers.length < 1;
       this.existingFiles.next(this.book.covers);
       this.loading = false;
-    },
-    error => {
-      this.alert.showErrorAlert(
-        'An error occurred while fetching book data. Please refresh the page.',
-        'Error');
-    });
+    // }
+    // ,
+    // error => {
+    //   this.alert.showErrorAlert(
+    //     'An error occurred while fetching book data. Please refresh the page.',
+    //     'Error');
+    // });
 
   }
 
@@ -87,6 +89,10 @@ export class BookEditComponent implements OnInit {
     return this.bookEditForm.get('author');
   }
 
+  get publisher(){
+    return this.bookEditForm.get('publisher');
+
+  }
   onFilesChange(files){
     if (files.length > 0){
       this.fileError = false;
@@ -96,18 +102,26 @@ export class BookEditComponent implements OnInit {
   }
 
   onUploadComplete(files){
-   this.booksService.updateBook({
+  
+   let book  = {
       id: this.book.id,
-      title: this.bookEditForm.get('title').value,
-      authors: this.bookEditForm.get('author').value.split(','),
+      title: this.title.value,
+      authors: this.author.value.split(','),
       isbns: this.book.isbns,
       covers: files
-    }).subscribe(book => {
+    };
+
+   this.booksService.updateBook(book).subscribe(book => {
       this.saving = false;
+      this.book.title =book.title;
+      this.book.authors =book.authors;
+      this.book.isbns = book.isbns;
+      this.book.covers = book.covers;
+      this.dialogRef.close();
       this.alert.showSuccessAlert(
         'Changes were successfully saved',
         'Update successful');
-      this.router.navigate([`/books/${book.id}`]);
+      this.router.navigate([`books/${book.id}`]);
     },
     err => {
       this.saving = false;
@@ -115,6 +129,25 @@ export class BookEditComponent implements OnInit {
         'Please refresh the page and try again',
         'Error occured while updating');
     });
+  }
+
+
+  closeModal(){
+    if (this.saving)
+    {
+    this.alert.showConfirm(
+      'Closing the form while submitting can cause unexpected behavior. Are you sure?',
+      'Confirm'
+    ).afterClosed().subscribe(
+      value => {  
+
+        if (value){
+          this.dialogRef.close();
+        }
+      });
+    } else {
+      this.dialogRef.close();
+    }
   }
 
   public onSubmit(){

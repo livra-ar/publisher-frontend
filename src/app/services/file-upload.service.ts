@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 import { ConfigService } from '@app/services/config.service';
 @Injectable({
   providedIn: 'root'
@@ -28,17 +28,18 @@ export class FileUploadService {
     return this.http$.post<any>(url, formData, {
       reportProgress: true,
       observe: 'events'
-    });
+    }).pipe(retry(3));
   }
 
   public deleteFiles(urls){
+    let cloudinary = this.config.cloudinaryId;
     let ids = urls.map(url => (
-      url.match(`https?://res.cloudinary.com/db2rl2mxy/[a-z0-9/]+/(.*)\....`)[1]
+      (url.match(`^https?://res.cloudinary.com/${cloudinary}/[a-z0-9/]+/([^\.]*)\..+`) || ['d', 'dasdasdsads'])[1]
       .replace('.zip', '')
     ));
 
     for (let id of ids){
-      this.http$.delete<any>(`${this.SERVER_URL}/files/delete/id/`,).subscribe();
+      this.http$.delete<any>(`${this.SERVER_URL}/files/delete/${id}/`).subscribe();
     }
   }
 

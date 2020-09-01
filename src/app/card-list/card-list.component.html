@@ -1,37 +1,54 @@
 
+<div *ngIf="loading" fxLayout="row" fxFlex="100" fxLayoutAlign="center center" >
+  <div fxLayout="column" fxFlex="100" fxLayoutAlign="center center" >
+    <div style="height:50px; width:50px; margin-top:50px;">
+    <mat-progress-spinner diameter="30" *ngIf="loading"  mode="indeterminate"></mat-progress-spinner>
+  </div>
+  </div>
+</div>
 
-<mat-grid-list *ngIf= "!loading"  cols="4" rowHeight="400px" gutterSize="5px" style="margin:5px;">
-  <mat-grid-tile *ngFor="let card of cards">
-    <mat-card class="example-card">
+<div class="card-list" *ngIf="!loading && cards != []" fxLayout="column" fxFlex="100">
+  <div class="card-row" *ngFor="let row of cards; let i = index" fxLayout.gt-md="row" fxFlex="100 "  fxLayoutAlign="start start" fxLayout.lt-md="column" fxFlex="100">
+      
+      <div class="card-container" *ngFor="let card of row" fxLayout="column" [fxFlex.gt-sm]="100/cols" fxLayoutAlign="start center" fxFlex.lt-md="100" >
+    <mat-card class="item-card">
   <mat-card-header>
-    <mat-card-title>{{card.title}}</mat-card-title>
+    <mat-card-title>{{card.title | longText:25}}</mat-card-title>
   </mat-card-header>
   <div class="cover-image">
   <img mat-card-image class="rounded"  [src]="card.image" alt="Cover Image">
 </div>
   <mat-card-content class="mt-2">
-  <div *ngIf="!card.active" class="my-1">
-  <mat-chip-list aria-label="Tags">
-    <mat-chip>Unpublished</mat-chip>
-  </mat-chip-list>
-  </div>
-  <div *ngIf="card.active" class="my-1">
-    <mat-chip-list aria-label="Tags">
-      <mat-chip color="accent">Published</mat-chip>
-    </mat-chip-list>
-    </div>
-  <button [routerLink]="card.link" mat-flat-button color="primary" class="w-100">View</button>
+
+  
   </mat-card-content>
   <mat-card-actions>
+    <mat-grid-list cols="2" rowHeight="50">
+    <mat-grid-tile>
+      <mat-chip-list aria-label="Tags">
+  
+    <mat-chip *ngIf="!card.active">Unpublished</mat-chip>
 
+
+    
+      <mat-chip  *ngIf="card.active && (card.hasOwnProperty('owner') && card.owner == user.id)"  color="accent">Published</mat-chip>
+
+
+    </mat-chip-list>
+    </mat-grid-tile>
+  <mat-grid-tile>
+ <button [routerLink]="card.link" mat-flat-button color="primary" class="w-100">View</button>
+  </mat-grid-tile>
+    </mat-grid-list>
+
+ 
   </mat-card-actions>
 </mat-card>
-  </mat-grid-tile>
+  </div>
 
-  <p *ngIf="!loading && cards.length === 0" class="m-5">You have not added any items</p>
 
-</mat-grid-list>
+  </div>
 
-<div class="d-flex justify-content-center align-items-center my-5" >
-  <mat-progress-spinner diameter="30" *ngIf="loading"  mode="indeterminate"></mat-progress-spinner>
 </div>
+
+

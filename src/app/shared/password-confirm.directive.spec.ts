@@ -1,8 +1,8 @@
-// import { PasswordConfirmValidatorDirective } from './password-confirm-validator.directive';
+import { passwordConfirmValidator } from './password-confirm.directive';
 
-// describe('PasswordConfirmValidatorDirective', () => {
-//   it('should create an instance', () => {
-//     const directive = new PasswordConfirmValidatorDirective();
-//     expect(directive).toBeTruthy();
-//   });
-// });
+describe('PasswordConfirmValidatorFunction', () => {
+  it('should be defined', () => {
+    const directive = passwordConfirmValidator;
+    expect(directive).toBeDefined();
+  });
+});

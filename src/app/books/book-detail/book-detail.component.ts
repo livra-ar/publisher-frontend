@@ -7,6 +7,9 @@ import { of, BehaviorSubject, throwError } from 'rxjs';
 import { AuthService } from '@app/auth/auth.service';
 import { switchMap, tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { BookEditComponent } from '@app/books/book-edit/book-edit.component';
+
+import {MatDialog} from '@angular/material/dialog';
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail.component.html',
@@ -15,17 +18,18 @@ import { FormControl } from '@angular/forms';
 export class BookDetailComponent implements OnInit {
 
   constructor(
-    private route: ActivatedRoute,
+    private route: ActivatedRoute,  
     private router: Router,
     private bookService: BooksService,
     private authService: AuthService,
     private contentService: ContentService,
-    private alert: DialogService
+    private alert: DialogService,
+    private dialog: MatDialog
   ) { }
 
   public book;
   user;
-  public content = new BehaviorSubject<any[]>([]);
+  public content = new BehaviorSubject<any[]>(null);
   loading = true;
   ngOnInit(): void {
 
@@ -47,7 +51,8 @@ export class BookDetailComponent implements OnInit {
           title: content.title,
           image: (content.images) ? content.images[0]: null,
           active: content.active,
-          type:'content'
+          type:'content',
+          owner: content.creator.id
         })));
       });
      }, err => {
@@ -85,4 +90,16 @@ export class BookDetailComponent implements OnInit {
 
   }
 
+
+    openEditBook() {
+    const dialogRef = this.dialog.open(BookEditComponent, {
+     height: '500px',
+     width: '600px',
+     data: {book: this.book}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+}
 }

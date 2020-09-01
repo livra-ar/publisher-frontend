@@ -11,9 +11,7 @@
                           <div class="col-8">
                             <mat-progress-bar [value]="file.progress"></mat-progress-bar>
                               <small class="form-text text-muted" id="file-label">
-                            {{file.data.name}}
-
-
+                            <a href="{{file.data.name}}" target="_blank">{{label || 'File'}}#{{i+1}}</a>
                     </small>
                           </div>
                           <div class="col">
@@ -43,6 +41,6 @@
             </button>
 
     <input type="file" #fileUpload id="fileUpload" name="fileUpload" [accept]="
-    (type ===  'images') ? 'image/*' : '.sfb'" style="display:none;" />
+    (type ===  'images') ? 'image/*' : '*/*'" style="display:none;" />
 
   </div>

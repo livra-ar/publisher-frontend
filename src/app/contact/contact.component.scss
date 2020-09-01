@@ -1,0 +1,15 @@
+.left{
+    background: url('../../assets/feedback.jpg');
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+.sides-container{
+    overflow: hidden;
+}
+
+
+mat-form-field {
+    width: 80%;
+    margin-top: 10px;
+  }

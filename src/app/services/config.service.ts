@@ -10,4 +10,12 @@ export class ConfigService {
   get serverUrl(){
     return 'https://ar-content-platform-backend.herokuapp.com';
   }
+
+  get cloudinaryId(){
+  	return 'db2rl2mxy';
+  }
+
+  get maxImageSize(){
+  	return 10000;
+  }
 }

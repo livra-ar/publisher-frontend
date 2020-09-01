@@ -6,7 +6,8 @@ import { ContentService } from '@app/services/content.service';
 import { DialogService } from '@app/services/dialog.service';
 import { AuthService } from '@app/auth/auth.service';
 import { Router } from '@angular/router';
-
+import { ContentEditComponent } from '@app/content/content-edit/content-edit.component';
+import { MatDialog} from '@angular/material/dialog';
 @Component({
   selector: 'app-content-detail',
   templateUrl: './content-detail.component.html',
@@ -19,7 +20,9 @@ export class ContentDetailComponent implements OnInit {
     private contentService: ContentService,
     private alert: DialogService,
     private authService: AuthService,
+    private dialog: MatDialog,
     private router: Router
+
     ) { }
   content;
   id;
@@ -74,5 +77,15 @@ export class ContentDetailComponent implements OnInit {
       });
 
      }
+
+         openEditContent() {
+    const dialogRef = this.dialog.open(ContentEditComponent, {
+     height: '420px',
+     width: '600px',
+     data: {content: this.content}
+    });
+
+
+  }
 
 }

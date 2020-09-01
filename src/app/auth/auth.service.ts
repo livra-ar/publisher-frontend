@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of,  BehaviorSubject } from 'rxjs';
 import { tap, delay, map, catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService} from '@app/services/config.service';
 
@@ -26,14 +25,15 @@ export class AuthService {
   redirectUrl: string = '/dashboard';
   private token: string;
   private currentUser;
-  private serverUrl = 'http://localhost:8000'
+  private serverUrl = 'http://localhost:8000';
+
   constructor(
      private http: HttpClient,
-     private router: Router,
      private config: ConfigService
   ) {
     this.loggedIn$.subscribe(value => this.isLoggedIn = value);
     this.serverUrl = config.serverUrl;
+    this.currentUser$.next(this.getCurrentUser()); 
    }
 
   private _storeLogin(loggedInUser: LoggedInUserInfo){
@@ -41,10 +41,9 @@ export class AuthService {
      this.currentUser$.next(loggedInUser);
   }
 
-
-
   logout(): void{
     this.loggedIn$.next(false);
+    this.currentUser$.next(null);
     localStorage.removeItem('user');
   }
 
@@ -72,9 +71,11 @@ export class AuthService {
     return this.http.head<any>(
       `${this.serverUrl}/user/emails/${email}/`, {'observe' : 'response'}
     ).pipe(
+    catchError(err => of({status: err.status})),
      map(response => {
        return response.status === 200;
      })
+
     );
   }
 
@@ -88,7 +89,6 @@ export class AuthService {
 
   getCurrentUser(){
     const user = JSON.parse(localStorage.getItem('user'));
-    this.currentUser$.next(user);  // This shouldnt be here
     return user;
   }
 
@@ -98,5 +98,35 @@ export class AuthService {
     }else{
       return null;
     }
+  }
+
+
+  requestForgotPassword(email){
+    return this.http.post<any>(`${this.serverUrl}/user/forgot/token/`, {
+      email
+    });
+  }
+
+  checkForgotPasswordRequest(id, code){
+    return this.http.get(`${this.serverUrl}/user/forgot/token/`, {
+      params: {
+        id,
+        code
+      },
+      observe: 'response'
+    }).pipe(
+    catchError(err => of({status: err.status})),
+     map(response => {
+       return response.status === 200;
+     })
+    );
+  }
+
+  forgotPasswordChange(id, code, password){
+        return this.http.post<any>(`${this.serverUrl}/user/forgot/change/`, {
+        id,
+        code,
+        password
+    });
   }
 }

@@ -4,3 +4,13 @@
   // Every toolbar row uses a flexbox row layout.
   flex: 1 1 auto;
 }
+
+#logo-icon {
+	position: relative;
+    top: 7px;
+    margin-right: 10px;
+}
+
+.menu-button{
+	color: white;
+}

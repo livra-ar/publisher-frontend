@@ -1,21 +1,20 @@
-<div class="container p-4">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-body position-relative">
-          <h5 class="card-title text-center">Edit Content</h5>
+<button (click)="closeModal()" class="close-button" mat-icon-button aria-label="Button to close the form">
+        <mat-icon>close</mat-icon>
+      </button>
+<h2 mat-dialog-title>Add Content</h2>
+<mat-dialog-content>
+  <form [formGroup]="editContentForm" (ngSubmit)="onSubmit">
           <div *ngIf="loading" class="d-flex justify-content-center align-items-center my-5" >
             <mat-progress-spinner diameter="30"   mode="indeterminate"></mat-progress-spinner>
           </div>
           <div *ngIf="saving" class="submitting-spinner" >
             <mat-progress-spinner diameter="30"   mode="indeterminate"></mat-progress-spinner>
           </div>
-          <div *ngIf="!loading" class="container mt-3" [style.opacity]="(saving) ? 0.7 : 1">
-            <div class="row">
-              <div class="col">
-                <form [formGroup]="editContentForm" (ngSubmit)="onSubmit">
+      <div class="container" fxFlex="100" fxLayout="row" [style.opacity]="saving ? 0.7 : 1">
+        <div class="form-side" fxLayout="column" fxFlex="50">
+                
             <div class="form-group">
-              <mat-form-field>
+             <mat-form-field appearance="outline">
                 <mat-label>Title</mat-label>
                 <input matInput name="title" formControlName="title" type="text">
                 <mat-error *ngIf="title.invalid && (title.dirty || title.touched) && title.errors.required">
@@ -24,7 +23,7 @@
               </mat-form-field>
             </div>
                <div class="form-group">
-            <mat-form-field>
+           <mat-form-field appearance="outline">
   <mat-label>Book</mat-label>
   <mat-select formControlName="book">
     <mat-option [value]="book.id" *ngFor="let book of (books)">
@@ -37,7 +36,7 @@
 </mat-form-field>
             </div>
             <div class="form-group">
-              <mat-form-field>
+             <mat-form-field appearance="outline">
                 <mat-label>Description</mat-label>
                 <textarea matInput name="description" formControlName="description">
                 </textarea>
@@ -47,21 +46,30 @@
                 </mat-error>
               </mat-form-field>
             </div>
-          </form></div>
-              <div class="col">
+
+                            <div>
+                <mat-checkbox color="primary" formControlName="animated">Animated?</mat-checkbox>
+
+              </div>
+          </div>
+           <div fxLayout="column" class="form-side" fxLayoutAlign="center center" fxFlex="50">
+                <div>
 
  <app-file-upload label="AR Content" #fileUpload [max]="maxFiles" type="files" (changed)="onFileInputChange($event)" [existingFiles]="existingFile.asObservable()" (uploaded)="onFileUploadComplete($event)">
-              </app-file-upload>
+              </app-file-upload>  </div>
 
+<div>
               <app-file-upload label="Preview Images" #imageUpload [max]="maxImageFiles" (changed)="onImageInputChange($event)" type="images" (uploaded)="onImageUploadComplete($event)" [existingFiles]="existingImages.asObservable()">
               </app-file-upload>
-                 <button class="w-100 p-1" (click)="onSubmit()" color="primary" mat-flat-button type="submit" [disabled]="!editContentForm.valid || fileError || imageError || saving">Save Changes</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
+               </div>
+                <div style="margin-top:10px">
+                 <button style="width:100%" (click)="onSubmit()" color="primary" mat-flat-button type="submit" [disabled]="!editContentForm.valid || fileError || imageError || saving">Save Changes</button>
+                    </div>
+              </div>
+
+          </div>
+    
+
+</form>
+</mat-dialog-content>

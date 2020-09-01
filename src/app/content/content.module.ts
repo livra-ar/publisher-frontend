@@ -14,9 +14,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { FileUploadModule } from '@app/file-upload/file-upload.module';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatChipsModule } from '@angular/material/chips';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { BrowserModule } from '@angular/platform-browser';
 @NgModule({
   declarations: [
     ContentDetailComponent,
@@ -25,18 +29,22 @@ import { FileUploadModule } from '@app/file-upload/file-upload.module';
   ],
   imports: [
     CommonModule,
+    BrowserModule,
     ReactiveFormsModule,
     ContentRoutingModule,
         MatProgressBarModule,
     MatButtonModule,
+    MatChipsModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatDialogModule,
     MatProgressSpinnerModule,
     FileUploadModule,
+    MatCheckboxModule,
     MatSelectModule,
-
+    MatTooltipModule,
+    FlexLayoutModule
   ]
 })
 export class ContentModule { }

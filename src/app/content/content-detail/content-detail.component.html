@@ -1,9 +1,72 @@
-<div *ngIf="loading" class="d-flex justify-content-center align-items-center my-5" >
-  <mat-progress-spinner diameter="30" mode="indeterminate"></mat-progress-spinner>
+<div>
+<div *ngIf="loading" fxLayout="row" fxFlex="100" fxLayoutAlign="center center" >
+  <div fxLayout="column" fxFlex="100" fxLayoutAlign="center center" >
+    <div style="height:50px; width:50px; margin-top:50px;">
+    <mat-progress-spinner diameter="30" *ngIf="loading"  mode="indeterminate"></mat-progress-spinner>
+  </div>
+  </div>
+</div>
+</div>
+<div *ngIf="!loading" style="background-color:#718792;">
+  <div class="content-details" fxLayout.lt-md="column" fxLayout.gt-sm="row" style="">
+      <div class="preview-container" fxFlex.lt-md="100" fxFlex.gt-sm="60" fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayoutAlign="center center" fxFlex="80">
+        <div fxLayout="column" fxFlex="60">
+          <img [src]="content?.images[0]" alt="" style="background-color:gray;height:80%;height:auto" class="content-preview">
+        </div>
+      </div>
+  </div>
+   <div fxLayout="column" style="background-color:white;" fxFlex.gt-sm="40" fxFlex.ls-md="100" fxLayoutAlign="center center">
+      <div >
+            <h1 style="font-weight:bold;text-align:center;">{{ content?.title}}</h1>
+
+      </div>
+      <div>
+               <h3 style="text-align:center;">by <span style="font-style:italic">{{ content?.creator?.name }}</span></h3>
+
+      </div>
+        <div *ngIf="content?.creator.id == user.id" style="margin-top:10px;"> <button matTooltip="Edit Content" (click)="openEditContent()" mat-icon-button color="primary" aria-label="Edit Content Details Button">
+    <mat-icon>edit</mat-icon>
+  </button>
+   <button matTooltip="Delete Content" (click)="delete()" mat-icon-button color="warn" aria-label="Delete Content Button">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <a  matTooltip="Download AR Content" color="secondary" [href]="content?.file" mat-icon-button aria-label="Download File Button">
+    <mat-icon>cloud_download</mat-icon>
+  </a>
+
+  </div>
+  <div>
+     <p style="font-weight:light; padding: 0 15px;  word-break: break-all;"class="font-weight-light text-break">
+        {{ content?.description }}
+      </p>
+  </div>
+
+  <div>
+<mat-chip-list aria-label="Tags">
+  
+    <mat-chip *ngIf="content.animated">Animated</mat-chip>
+
+  </mat-chip-list>
+<!--      <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout="column"  fxFlex="40">
+      <div>
+      <a routerLink='/books/{{content.book.id}}'>
+   <img [src]="content.book.covers[0]" alt="" class="book-cover">
+ </a>
+</div>
+ <div style="margin:0; text-align:center;font-style:italic;">Related book: {{content.book.title}}</div>
+    </div>
+  </div> -->
+  </div>
+
+
+  </div>
 </div>
 
-<div *ngIf="!loading" class="container" style="background-color:#fff">
-  <div class="row">
+<!--
+
+   <div class="row">
     <div class="col-sm-6 col-md-8">
       <img [src]="content?.images[0]" alt="" class="img-fluid">
     </div>
@@ -11,21 +74,10 @@
       <h3 class="font-weight-bold mt-4  ">{{ content?.title}}</h3>
       <h4>by <span  class="font-italic">{{ content?.creator?.name }}</span></h4>
 
-        <div *ngIf="content?.creator.id == user.id"> <button routerLink='/content/edit/{{content?.id}}' mat-icon-button color="primary" aria-label="Edit Content Details Button">
-    <mat-icon>edit</mat-icon>
-  </button>
-   <button (click)="delete()" mat-icon-button color="warn" aria-label="Delete Content Button">
-    <mat-icon>delete</mat-icon>
-  </button>
-  <a [href]="content?.file" mat-icon-button aria-label="Download File Button">
-    <mat-icon>cloud_download</mat-icon>
-  </a>
-
-  </div>
+      
       <p class="font-weight-light text-break">
         {{ content?.description }}
       </p>
     </div>
   </div>
-</div>
-
+  -->

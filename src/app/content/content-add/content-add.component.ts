@@ -6,6 +6,7 @@ import { catchError,tap } from 'rxjs/operators';
 import { FileUploadComponent } from '@app/file-upload/file-upload.component';
 import { BooksService } from '@app/services/books.service';
 import { DialogService } from '@app/services/dialog.service';
+import { MatDialogRef} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-content-add',
@@ -20,7 +21,8 @@ export class ContentAddComponent implements OnInit {
        Validators.required, Validators.minLength(100),
        Validators.maxLength(280)
      ]],
-     book: ['', [Validators.required]]
+     book: ['', [Validators.required]],
+     animated: [false]
    });
 
   constructor(
@@ -28,15 +30,18 @@ export class ContentAddComponent implements OnInit {
     private booksService: BooksService,
     private fb: FormBuilder,
     private router: Router,
-    private alert: DialogService
+    private alert: DialogService,
+    private dialogRef: MatDialogRef<ContentAddComponent>
   ) { }
 
   fileError = true;
   imageError = true;
   maxFiles = 1;
   maxImageFiles = 3;
+  maxImageSize = 300000;
   fileUrls;
   imageUrls;
+  fileSize;
   books$
   saving=false;
   @ViewChild('fileUpload')
@@ -52,7 +57,7 @@ export class ContentAddComponent implements OnInit {
           this.alert.showErrorAlert(
             'Please add a book first in order to add content.',
             'Add a book').afterClosed().subscribe(result=>{
-              this.router.navigate(['/books/add']);
+              this.dialogRef.close();
             });
         }
       }),
@@ -74,10 +79,27 @@ export class ContentAddComponent implements OnInit {
     return this.addContentForm.get('book')
   }
 
+  closeModal(){
+    if (this.saving)
+    {
+    this.alert.showConfirm(
+      'Closing the form while submitting can cause unexpected behavior. Are you sure?',
+      'Confirm'
+    ).afterClosed().subscribe(
+      value => {  
 
+        if (value){
+          this.dialogRef.close();
+        }
+      });
+    } else {
+      this.dialogRef.close();
+    }
+  }
 
   onSubmit(){
     this.saving = true;
+
     this.fileUpload.saveChanges();
   }
 
@@ -89,9 +111,12 @@ export class ContentAddComponent implements OnInit {
       description: this.addContentForm.get('description').value,
       book: this.addContentForm.get('book').value,
       file: this.fileUrls[0],
-      images: this.imageUrls
+      images: this.imageUrls,
+      animated: this.addContentForm.get('animated').value,
+      size: this.fileSize
     }).subscribe(content=> {
       this.saving = false;
+      this.dialogRef.close();
       this.alert.showSuccessAlert(
         'Content successfully added!',
         'Success');
@@ -111,9 +136,20 @@ export class ContentAddComponent implements OnInit {
 
   onFileInputChange(files){
     this.fileError = files.length < 1;
+    this.fileSize = files[0].data.size;
   }
 
   onImageInputChange(images){
      this.imageError = images.length < 1;
+     for (const image of images){
+        if (image.data.size > this.maxImageSize){
+          this.imageError = true;
+          this.alert.showErrorAlert(
+          `Selected image is larger than maximum allowed size.`
+          + `Please remove it and add an image with size less than ${this.maxImageSize} bytes.`,
+          'Error');
+          return;
+        }
+     }
   }
 }

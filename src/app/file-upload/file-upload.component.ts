@@ -117,7 +117,9 @@ export class FileUploadComponent implements ControlValueAccessor {
 
   saveChanges(){
     this.deleteFiles();
+    console.log('Te')
     if (this.newlyAdded > 0){
+
       this.uploadFiles();
     }else{
       this.uploaded.emit(this.fileUrls);

@@ -16,7 +16,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CardListModule } from '@app/card-list/card-list.module';
 import { FileUploadModule } from '@app/file-upload/file-upload.module';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     BookDetailComponent,
@@ -36,6 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatProgressSpinnerModule,
     HttpClientModule,
     FileUploadModule,
+    FlexLayoutModule,
+    MatTooltipModule,
     CardListModule
   ],
 
