@@ -1,73 +1,71 @@
+<button (click)="closeModal()" class="close-button" mat-icon-button aria-label="Button to close the form">
+        <mat-icon>close</mat-icon>
+      </button>
 
-<div class="container p-4">
+<h2 mat-dialog-title>Register as a Publisher</h2>
+<mat-dialog-content>
 
-  <div class="row justify-content-center">
-    <div class="col-md-4">
-
-      <div class="card">
-
-  <div class="card-body position-relative">
-    <h5 class="card-title text-center">Register</h5>
     <div *ngIf="submitting" class="submitting-spinner">
       <mat-progress-spinner diameter="30"   mode="indeterminate"></mat-progress-spinner>
     </div>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-<div class="form-group"><mat-form-field>    <mat-label>Display Name</mat-label>
 
-    <input matInput formControlName="displayName" name="displayName" type="text" required>
-
-        <mat-error *ngIf="displayName.invalid && (displayName.dirty || displayName.touched) && displayName.errors?.required">
+<div fxLayout="column">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div fxFlexFill fxLayout="row" fxLayoutAlign="space-between space-between">
+      <div fxLayout="column" fxFlex.gt-sm="49">
+        <mat-form-field appearance="outline">    <mat-label>Display Name</mat-label>
+          <input matInput formControlName="displayName" name="displayName" type="text" required>
+          <mat-error *ngIf="displayName.invalid && (displayName.dirty || displayName.touched) && displayName.errors?.required">
             A display name is required
-        </mat-error>
-    </mat-form-field>
-</div>
-<div class="form-group">
-    <mat-form-field><mat-label>Email</mat-label>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxFlex.gt-sm="49">
+      <mat-form-field appearance="outline"><mat-label>Email</mat-label>
           <input matInput formControlName="email" name="email" type="text" required>
-		<mat-progress-spinner *ngIf="true" diameter="18" style="float: right; margin-left: 8px" matSuffix></mat-progress-spinner>
+    <mat-progress-spinner *ngIf="true" diameter="18" style="float: right; margin-left: 8px" matSuffix></mat-progress-spinner>
             <mat-error *ngIf="email.invalid && (email.dirty || email.touched) && email.errors?.required || email.errors?.invalidPattern">
                 A valid email is required
             </mat-error>
             <mat-error *ngIf="email.invalid && (email.dirty || email.touched) && email.errors?.nonUniqueEmail">
                 Email already registered
             </mat-error>
-          </mat-form-field></div>
-<div class="form-group"><mat-form-field>    <mat-label>Password</mat-label>
+          </mat-form-field>
+      </div>
+    </div>
+
+  <div fxLayout="row" fxFlexFill fxLayoutAlign="space-between space-between">
+  <div fxLayout="column" fxFlex.gt-sm="49">
+<mat-form-field appearance="outline">    <mat-label>Password</mat-label>
     <input matInput formControlName="password" name="password" type="password" required>
     <mat-hint>Password should contain at least 8 non whitespace characters</mat-hint>
         <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors?.required">
             A valid password is required
         </mat-error>
+        <mat-error *ngElse="password.invalid && (password.dirty || password.touched) && password.errors?.invalidPattern">
+            must have non whitespace characters
+        </mat-error>
         <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors?.minlength">
-            Password must be at least 8 characters
+            must be at least 8 characters
         </mat-error>
-        <mat-error *ngIf="password.invalid && (password.dirty || password.touched) && password.errors?.invalidPattern">
-            Password should have non whitespace characters
-        </mat-error>
+        
   </mat-form-field>
     </div>
 
-<div class="form-group"><mat-form-field>    <mat-label>Password (Confirm)</mat-label>
+      <div fxLayout="column" fxFlex.gt-sm="49">
+<mat-form-field appearance="outline">    <mat-label>Password (Confirm)</mat-label>
     <input matInput formControlName="confirm" name="confirm" type="password" [errorStateMatcher]="matcher" required>
         <mat-error *ngIf="confirm.invalid && (confirm.dirty || confirm.touched) && confirm.errors?.required">
-            A password confirmation is required
+            Confirmation is required
         </mat-error>
         <mat-error *ngIf="registerForm.errors?.unmatchingPasswords">
-            Password and confirmation do not match
+            Confirmation does not match
         </mat-error>
-</mat-form-field></div>
-
-  <button class="w-100 p-1" color="primary" mat-flat-button type="submit" [disabled]="!registerForm.valid || submitting">Register</button>
+</mat-form-field>
+      </div>
+</div>
+  <button style="width:100%;margin-top:20px; padding:5px;" color="primary" mat-flat-button type="submit" [disabled]="!registerForm.valid || submitting">Register</button>
 </form>
-
-  </div>
 </div>
 
-
-    </div>
-  </div>
-</div>
-
-
-
-
+</mat-dialog-content>

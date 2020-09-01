@@ -7,7 +7,7 @@ import { VALIDATION } from '@app/shared/validation-constants.ts';
 import { AuthService } from '@app/auth/auth.service';
 import { DialogService } from '@app/services/dialog.service';
 import { Router } from '@angular/router';
-
+import {MatDialogRef} from '@angular/material/dialog';
 import {ErrorStateMatcher} from '@angular/material/core';
 
 /** Error when invalid control is dirty, touched, or submitted. */
@@ -34,7 +34,8 @@ export class RegisterComponent implements OnInit {
     private alert: DialogService,
     private fb:FormBuilder,
     private router: Router,
-    private uniqueEmailValidator: UniqueEmailValidator
+    private uniqueEmailValidator: UniqueEmailValidator,
+    private dialogRef:MatDialogRef<RegisterComponent>
   ) { }
 
   matcher = new MyErrorStateMatcher();
@@ -65,6 +66,9 @@ export class RegisterComponent implements OnInit {
 
   }
 
+ closeModal(){
+      this.dialogRef.close();
+  }
   get displayName(){
     return this.registerForm.get('displayName');
   }
@@ -91,6 +95,7 @@ export class RegisterComponent implements OnInit {
       user =>  {
         this.alert.showSuccessAlert('Registration successful. Please login',
         'Success').afterClosed().subscribe(()=>{
+           this.dialogRef.close();
           this.router.navigate(['/login'])
         });
       },
