@@ -16,6 +16,11 @@ export class FeedbackService {
   }
 
   postFeedback(feedback: Feedback){
-    return this.http.post<any>(this.SERVER_URL + 'feedback', feedback);
+    let formData = new FormData();
+    formData.append('name', feedback.name);
+    formData.append('subject', feedback.subject);
+    formData.append('email', feedback.email);
+    formData.append('message', feedback.message);
+    return this.http.post<any>(this.SERVER_URL + 'feedback', formData);
   }
 }

@@ -74,15 +74,15 @@ export class LoginComponent implements OnInit{
   }
 
   onResetSubmit(){
-    this.submitting = true;
+    this.resetSubmitting = true;
     this.authService.requestForgotPassword(this.reset_email.value).subscribe(done => {
-      this.submitting = false;
+      this.resetSubmitting = false;
       this.alert.showSuccessAlert('You will receive a password reset link if the email is valid', 'Success');
       this.email.setValue('');
     });
    
   }
-
+  showForgot= false;
 
   onSubmit(){
     this.submitting = true;
@@ -93,6 +93,7 @@ export class LoginComponent implements OnInit{
       },
       err => {
         this.submitting = false;
+        this.showForgot = true;
         this.alert.showErrorAlert(err.error.non_field_errors || err.statusText,'Could not login');
       }
     );

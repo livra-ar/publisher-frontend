@@ -50,9 +50,9 @@
 </mat-grid-list>
 
 <button style="width:100%;margin-top:3px;padding:5px"  color="primary" mat-flat-button type="submit" [disabled]="!loginForm.valid || submitting">Login</button>
-<!--<div>
-  <a href="#" (click)="showReset()">Forgot Password?</a>
-  </div>-->
+<div>
+  <a *ngIf="showForgot" href="#" (click)="showReset()" style="color:gray;text-decoration:none"><small>Forgot Password? </small></a>
+  </div>
 </form>
 
 
@@ -85,7 +85,7 @@
 <button style="width:100%;margin-top:3px;padding:5px"  color="primary" mat-flat-button type="submit" [disabled]="!resetForm.valid || resetSubmitting">Request Code</button>
 <div style="text-align:center;font-size:16px;">
   <br/>
-  <!--<p><a style="color:gray;text-decoration:none" href="#" (click)="showReset()"><< Back To Login</a></p>-->
+  <p><a style="color:gray;text-decoration:none" href="#" (click)="showLogin()"><small><< Back To Login</small></a></p>
   </div>
 </form>
 

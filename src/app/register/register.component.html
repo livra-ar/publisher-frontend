@@ -11,7 +11,7 @@
 
 <div fxLayout="column">
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div fxFlexFill fxLayout="row" fxLayoutAlign="space-between space-between">
+    <div fxFlexFill fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-between space-between">
       <div fxLayout="column" fxFlex.gt-sm="49">
         <mat-form-field appearance="outline">    <mat-label>Display Name</mat-label>
           <input matInput formControlName="displayName" name="displayName" type="text" required>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-  <div fxLayout="row" fxFlexFill fxLayoutAlign="space-between space-between">
+  <div  fxLayout="column" fxLayout.gt-sm="row" fxFlexFill fxLayoutAlign="space-between space-between">
   <div fxLayout="column" fxFlex.gt-sm="49">
 <mat-form-field appearance="outline">    <mat-label>Password</mat-label>
     <input matInput formControlName="password" name="password" type="password" required>

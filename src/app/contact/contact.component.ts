@@ -24,6 +24,7 @@ export class ContactComponent implements OnInit {
                   patternValidator(VALIDATION.emailRegex)
                 ]],
   })
+  submitting = false;
   constructor(
     private fb: FormBuilder,
     private alert: DialogService,
@@ -33,8 +34,7 @@ export class ContactComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submitting=false;
-
+  
   get name(){
     return this.contactForm.get('name');
   }
@@ -51,7 +51,8 @@ export class ContactComponent implements OnInit {
     return this.contactForm.get('email');
   }
 
-  submitForm(){
+  onSubmit(){
+    this.submitting = true;
     this.feedback.postFeedback({
       name: this.name.value,
       email: this.email.value,
@@ -59,8 +60,10 @@ export class ContactComponent implements OnInit {
       message: this.message.value
     }).subscribe(success =>{
       this.alert.showSuccessAlert("Feedback Sent!");
+      this.submitting = false;
     }, err => {
       this.alert.showErrorAlert('Error occured!');
+      this.submitting = false;
     })
    
   }
